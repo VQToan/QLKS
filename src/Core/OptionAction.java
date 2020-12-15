@@ -33,7 +33,7 @@ public class OptionAction {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if ((date2.getTime()-date1.getTime())/(1000*60)<=0) {
+		if (((date1.getTime()-date2.getTime())/(1000*60))<=0) {
 			for (int i= 0;i< dataRooms.size(); i++) {
 				if(customer.getiDRoom().equals(dataRooms.get(i).getiDsRoom())) {
 					Room tempRoom= dataRooms.get(i);

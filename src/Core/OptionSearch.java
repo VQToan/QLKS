@@ -49,8 +49,8 @@ public class OptionSearch {
 			if (method.equals("iDRoom") && data.getiDRoom().equals(key)) flag= true;
 			if (method.equals("dateIn") && (data.getInOut().getdateIn().equals(key) | key.equalsIgnoreCase("dd-mm-yyyy"))) flag= true;
 			if (method.equals("dateOut") && (data.getInOut().getdateOut().equals(key) | key.equalsIgnoreCase("dd-mm-yyyy"))) flag = true;
-			if (method.equals("timeIn" )&& data.getInOut().getTimeIn().equals(key)) flag= true;
-			if (method.equals("timeOut") && data.getInOut().getTimeOut().equals(key)) flag= true;
+			if (method.equals("timeIn" )&& data.getInOut().getTimeIn().equals(key)|key.equals("0")) flag= true;
+			if (method.equals("timeOut") && data.getInOut().getTimeOut().equals(key)|key.equals("0")) flag= true;
 		}
 		return flag;
 	}
@@ -85,7 +85,7 @@ public class OptionSearch {
 	
 	public boolean check(Room data, String method, String key) {
 		boolean flag= false;
-		if (key=="") flag= true;
+		if (key.equals("")) flag= true;
 		else {
 			if (method.equals( "iDsRoom") && data.getiDsRoom().equals(key) ) flag= true;
 			if (method.equals( "status") && data.getStatus().equals(key)) flag= true;
@@ -120,22 +120,46 @@ public class OptionSearch {
 		if (numberIn.equals("")) return "";
 		else {
 			int numberIn1= Integer.valueOf(numberIn);
-		int nearNumber=0;
+			int nearNumber=0;
 		int distance=0;
-		if (method.equalsIgnoreCase("Price1Hour")) 
-		for (Room room : dataRoom) {
-			if (Math.abs(numberIn1-room.getPrice1Hour())< distance) {
-				nearNumber=room.getPrice1Hour();
-			}
-			
-		}
-		if (method.equalsIgnoreCase("PriceOverNight")) 
+		if (method.equalsIgnoreCase("Price1Hour")) {
+			nearNumber=dataRoom.get(0).getPrice1Hour();
 			for (Room room : dataRoom) {
-				if (Math.abs(numberIn1-room.getPriceOverNight())< distance) {
-					nearNumber=room.getPriceOverNight();
+				if (Math.abs(numberIn1-room.getPrice1Hour())< distance) {
+					nearNumber=room.getPrice1Hour();
+				}
+				
+			}
+		}
+		if (method.equalsIgnoreCase("PriceOverNight")) {
+			nearNumber=dataRoom.get(0).getPrice1Hour();
+				for (Room room : dataRoom) {
+					if (Math.abs(numberIn1-room.getPriceOverNight())< distance) {
+						nearNumber=room.getPriceOverNight();
+					}
 				}
 			}
-		return String.valueOf(nearNumber);
+			return String.valueOf(nearNumber);
+			}
 		}
+	public String searchMinPrice(ArrayList<Room> dataRooms, String method) {
+		int priceend=0;
+		if (method.equals("Theo giờ")) {
+			priceend= dataRooms.get(0).getPrice1Hour();
+			for (Room room : dataRooms) {
+				if (priceend>room.getPrice1Hour()) {
+					priceend=room.getPrice1Hour();
+				}
+			}
+		}
+		if (method.equals("Qua đêm")) {
+			priceend= dataRooms.get(0).getPriceOverNight();
+			for (Room room : dataRooms) {
+				if (priceend>room.getPriceOverNight()) {
+					priceend=room.getPriceOverNight();
+				}
+			}
+		}
+		return String.valueOf(priceend);
 	}
 }

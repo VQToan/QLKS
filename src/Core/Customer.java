@@ -119,18 +119,22 @@ public class Customer implements Serializable{
 		return amountPaid;
 	}
 	
-	public int valueSearch(ArrayList<Room> dataRoom) {
-		OptionSearch search = new OptionSearch();
-		if (search.SearchRoom(dataRoom, iDRoom, "", "", "", "").size()>1) {
-			return search.SearchRoom(dataRoom, iDRoom, "", "", "", "").get(0).getPrice1Hour();
-		}else return 0;
-		
-		
-	}
 	public int valueSearch2(ArrayList<Room> dataRoom) {
-		OptionSearch search = new OptionSearch();
-		if (search.SearchRoom(dataRoom, iDRoom, "", "", "", "").size()>1) {
-			return search.SearchRoom(dataRoom, iDRoom, "", "", "", "").get(0).getPriceOverNight();
-		}else return 0;
+		int value =0;
+		for (Room room : dataRoom) {
+			if (iDRoom.equals(room.getiDsRoom())) {
+				value=room.getPriceOverNight();
+			}
+		}
+		return value;
+	}
+	public int valueSearch(ArrayList<Room> dataRoom) {
+		int value =0;
+		for (Room room : dataRoom) {
+			if (iDRoom.equals(room.getiDsRoom())) {
+				value=room.getPrice1Hour();
+			}
+		}
+		return value;
 	}
 }

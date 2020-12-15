@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomerList>
+<Customer>
+		<rollNo>01</rollNo>
+		<fullName>Võ Quốc Toàn  </fullName>
+		<iD>a26145716489</iD>
+		<phoneNumber>a983243953</phoneNumber>
+		<iDRoom>001</iDRoom>
+		<typeRent>1Hour</typeRent>
+		<inOut>
+			<timeIn>10:25</timeIn>
+			<dateIn>22-06-2020</dateIn>
+			<timeOut>9:00</timeOut>
+			<dateout>23-06-2020</dateout>
+		</inOut>
+	</Customer>
+</CustomerList>

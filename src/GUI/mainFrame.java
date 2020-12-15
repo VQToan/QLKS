@@ -1,33 +1,46 @@
 package GUI;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 
-import javax.swing.JLabel;
-import java.awt.Font;
-import javax.swing.JTabbedPane;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.JButton;
-import javax.swing.SwingConstants;
-import javax.swing.JTable;
-import Core.*;
+
+import Core.Customer;
+import Core.DataFile;
+import Core.OptionAction;
+import Core.OptionSearch;
+import Core.Room;
+
+
+import java.awt.FlowLayout;
 
 public class mainFrame extends JFrame {
 
@@ -37,19 +50,18 @@ public class mainFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel MainPane;
 	private final JPanel panelTitle = new JPanel();
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
-	private JTextField textField_8;
-	private JTextField textField_9;
-	private JTextField textField_10;
-	private JTextField textField_11;
-	private JTextField textField_12;
+	private JTextField txtIDsRoom;
+	private JTextField txtPrice;
+	private JTextField txtID;
+	private JTextField txtDayIn;
+	private JTextField txtFullName;
+	private JTextField txtIDPersonal;
+	private JTextField txtPhone;
+	private JTextField txtDayOut;
+	private JTextField txtIDRoom;
+	private JTextField txtFullName1;
+	private JTextField txtIDPersonal2;
+	private JTextField txtPhone2;
 	private JTable tableRoom;
 	private JTable tableCust;
 	ArrayList<Customer> listCustomers = new ArrayList<>();
@@ -57,7 +69,7 @@ public class mainFrame extends JFrame {
     ArrayList<Room> listRooms =new ArrayList<>();
     OptionSearch search= new OptionSearch();
     OptionAction action= new OptionAction();
-
+	ArrayList<Room> roomSuggest = new ArrayList<>();
 	/**
 	 * Launch the application.
 	 */
@@ -84,6 +96,8 @@ public class mainFrame extends JFrame {
 	public mainFrame() {
 		listRooms= input.importRoom();
         listCustomers=input.importCustomer();
+        listRooms=action.autoCheckTime(listRooms, listCustomers);
+ 	   	input.exportRoom(listRooms);
         Timer timer = new Timer();
         int begin = 0;
         int timeInterval = 60000;
@@ -100,8 +114,7 @@ public class mainFrame extends JFrame {
 		MainPane = new JPanel();
 		MainPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(MainPane);
-		MainPane.setLayout(null);
-		panelTitle.setBounds(10, 0, 1337, 47);
+		MainPane.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		MainPane.add(panelTitle);
 		
 		JLabel lblTitle = new JLabel();
@@ -110,7 +123,6 @@ public class mainFrame extends JFrame {
 		panelTitle.add(lblTitle);
 		
 		JTabbedPane tabPaneMain = new JTabbedPane(JTabbedPane.TOP);
-		tabPaneMain.setBounds(10, 46, 1337, 692);
 		MainPane.add(tabPaneMain);
 		
 		JPanel jPInforTeam = new JPanel();
@@ -179,7 +191,7 @@ public class mainFrame extends JFrame {
             tableRoom.getColumnModel().getColumn(3).setResizable(false);
             tableRoom.getColumnModel().getColumn(4).setResizable(false);
     }
-		
+		ShowOnTableRoom(listRooms);
 		JPanel panelSearchRoom = new JPanel();
 		panelSearchRoom.setBounds(21, 11, 1300, 210);
 		panelSearchRoom.setLayout(null);
@@ -189,63 +201,174 @@ public class mainFrame extends JFrame {
 		lblIDsRoom.setBounds(100, 24, 110, 30);
 		panelSearchRoom.add(lblIDsRoom);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(220, 24, 180, 30);
-		panelSearchRoom.add(textField);
+		txtIDsRoom = new JTextField();
+		txtIDsRoom.setColumns(10);
+		txtIDsRoom.setBounds(220, 24, 180, 30);
+		panelSearchRoom.add(txtIDsRoom);
 		
 		JLabel lblTypeRoom = new JLabel("Loại phòng:");
 		lblTypeRoom.setBounds(100, 78, 110, 30);
 		panelSearchRoom.add(lblTypeRoom);
 		
-		JComboBox cbbTypeRoom = new JComboBox();
+		JComboBox<String> cbbTypeRoom = new JComboBox<String>();
 		cbbTypeRoom.setBounds(220, 78, 180, 30);
 		panelSearchRoom.add(cbbTypeRoom);
+		cbbTypeRoom.setModel(new DefaultComboBoxModel<String>(setOptionTypeRoom(listRooms)));
 		
 		JLabel lblStatus = new JLabel("Tình trạng:");
 		lblStatus.setBounds(100, 132, 110, 30);
 		panelSearchRoom.add(lblStatus);
 		
-		JComboBox cbbStatus = new JComboBox();
+		JComboBox<String> cbbStatus = new JComboBox<String>();
 		cbbStatus.setBounds(220, 132, 180, 30);
 		panelSearchRoom.add(cbbStatus);
+        cbbStatus.setModel(new DefaultComboBoxModel<String>(new String[] {"", "Đầy", "Trống"}));
+
 		
 		JLabel lblPrice = new JLabel("Giá thuê :");
 		lblPrice.setBounds(500, 24, 110, 30);
 		panelSearchRoom.add(lblPrice);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(620, 24, 180, 30);
-		panelSearchRoom.add(textField_1);
+		txtPrice = new JTextField();
+		txtPrice.setBounds(620, 24, 180, 30);
+		panelSearchRoom.add(txtPrice);
 		
 		JLabel lblTypeRent1 = new JLabel("Giá thuê ( qua đêm):");
 		lblTypeRent1.setBounds(500, 78, 110, 30);
 		panelSearchRoom.add(lblTypeRent1);
 		
-		JComboBox cbbTypeRent1 = new JComboBox();
+		JComboBox<String> cbbTypeRent1 = new JComboBox<String>();
 		cbbTypeRent1.setBounds(620, 78, 180, 30);
+        cbbTypeRent1.setModel(new DefaultComboBoxModel<String>(new String[] {"", "Tăng dần theo giá thuê giờ", "Tăng dần theo giá thuê qua đêm", "Giảm dần theo giá thuê giờ", "Giảm dần theo giá thuê qua đêm"}));
 		panelSearchRoom.add(cbbTypeRent1);
 		
 		JLabel lblBeds = new JLabel("Số giường");
 		lblBeds.setBounds(500, 132, 110, 30);
 		panelSearchRoom.add(lblBeds);
 		
-		JComboBox cbbBeds = new JComboBox();
+		JComboBox<String> cbbBeds = new JComboBox<String>();
 		cbbBeds.setBounds(620, 132, 180, 30);
 		panelSearchRoom.add(cbbBeds);
+        cbbBeds.setModel(new DefaultComboBoxModel<String>(setOptionBeds(listRooms)));
 		
 		JButton btnSearchRoom = new JButton("Tìm kiếm");
 		btnSearchRoom.setBounds(914, 28, 198, 70);
 		panelSearchRoom.add(btnSearchRoom);
+		btnSearchRoom.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ArrayList<Room> listEndSearchRooms = new ArrayList<>();
+				listEndSearchRooms= search.SearchRoom(listRooms, txtIDsRoom.getText(),cbbStatus.getItemAt(cbbStatus.getSelectedIndex()), cbbBeds.getItemAt(cbbBeds.getSelectedIndex()), cbbTypeRoom.getItemAt(cbbTypeRoom.getSelectedIndex()).toString(),txtPrice.getText());
+				//listEndSearchRooms= search.SearchRoom(listRooms, "", "", cbbBeds.getItemAt(cbbBeds.getSelectedIndex()), "", "");
+				ResetTableRoom();
+				System.out.println(listEndSearchRooms.get(0).toString());
+				System.out.println(cbbBeds.getItemAt(cbbBeds.getSelectedIndex()));
+				System.out.println(cbbStatus.getItemAt(cbbStatus.getSelectedIndex()));
+				System.out.println(cbbTypeRent1.getItemAt(cbbTypeRent1.getSelectedIndex()));
+				System.out.println(cbbTypeRoom.getItemAt(cbbTypeRoom.getSelectedIndex()));
+				if (cbbTypeRent1.getSelectedIndex()==2) {
+				        Collections.sort(listEndSearchRooms, new Comparator<Room>() {
+				        	@Override
+				            public int compare(Room r1, Room r2) {
+				                if (r1.getPrice1Hour() < r2.getPrice1Hour()) {
+				                    return -1;
+				                } else {
+				                    if (r1.getPrice1Hour() == r2.getPrice1Hour()) {
+				                        return 0;
+				                    } else {
+				                        return 1;
+				                    }
+				                }
+				            }
+				        });
+					}
+				if (cbbTypeRent1.getSelectedIndex()==3) {
+					Collections.sort(listEndSearchRooms, new Comparator<Room>() {
+						@Override
+			            public int compare(Room r1, Room r2) {
+			                if (r1.getPriceOverNight() < r2.getPriceOverNight()) {
+			                    return -1;
+			                } else {
+			                    if (r1.getPriceOverNight() == r2.getPriceOverNight()) {
+			                        return 0;
+			                    } else {
+			                        return 1;
+			                    }
+			                }
+			            }
+					});
+					
+				}
+				if (cbbTypeRent1.getSelectedIndex()==4) {
+			        Collections.sort(listEndSearchRooms, new Comparator<Room>() {
+			        	@Override
+			            public int compare(Room r1, Room r2) {
+			                if (r1.getPrice1Hour() < r2.getPrice1Hour()) {
+			                    return 1;
+			                } else {
+			                    if (r1.getPrice1Hour() == r2.getPrice1Hour()) {
+			                        return 0;
+			                    } else {
+			                        return -1;
+			                    }
+			                }
+			            }
+			        });
+				}
+				if (cbbTypeRent1.getSelectedIndex()==5) {
+					Collections.sort(listEndSearchRooms, new Comparator<Room>() {
+						@Override
+			            public int compare(Room r1, Room r2) {
+			                if (r1.getPriceOverNight() < r2.getPriceOverNight()) {
+			                    return 1;
+			                } else {
+			                    if (r1.getPriceOverNight() == r2.getPriceOverNight()) {
+			                        return 0;
+			                    } else {
+			                        return -1;
+			                    }
+			                }
+			            }
+					});
+					
+				}
+				if (listEndSearchRooms.get(0).getiDsRoom().equals("NoneItem")) {}
+				else {
+				ShowOnTableRoom(listEndSearchRooms);}
+				listEndSearchRooms=null;
+				}
+		});
+		
 		
 		JButton btnResetRoomSearchForm = new JButton("Nhập lại");
 		btnResetRoomSearchForm.setBounds(914, 122, 89, 30);
 		panelSearchRoom.add(btnResetRoomSearchForm);
+        btnResetRoomSearchForm.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				txtIDsRoom.setText("");
+				txtPrice.setText("");
+				cbbStatus.setSelectedIndex(0);
+				cbbBeds.setSelectedIndex(0);
+				cbbTypeRent1.setSelectedIndex(0);
+				cbbTypeRoom.setSelectedIndex(0);
+			}
+		});
 		
 		JButton btnShowAllRoom = new JButton("Xem tất cả");
 		btnShowAllRoom.setBounds(1023, 122, 89, 30);
 		panelSearchRoom.add(btnShowAllRoom);
-		
+		 btnShowAllRoom.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					ResetTableRoom();
+					ShowOnTableRoom(listRooms);
+				}
+			});
+//============================tab CUSTOMER==================================//		
 		JPanel jPInforCustomer = new JPanel();
 		jPInforCustomer.setLayout(null);
 		tabPaneMain.addTab("Th\u00F4ng tin kh\u00E1ch h\u00E0ng", null, jPInforCustomer, null);
@@ -256,16 +379,17 @@ public class mainFrame extends JFrame {
 		
 		tableCust = new JTable();
 		SPCust.setViewportView(tableCust);
+		ShowOnTableCus(listCustomers, listRooms);
 		
 		JPanel SearchRoom = new JPanel();
 		SearchRoom.setLayout(null);
 		SearchRoom.setBounds(0, 0, 1326, 209);
 		jPInforCustomer.add(SearchRoom);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(123, 23, 296, 30);
-		SearchRoom.add(textField_2);
+		txtID = new JTextField();
+		txtID.setColumns(10);
+		txtID.setBounds(123, 23, 296, 30);
+		SearchRoom.add(txtID);
 		
 		JLabel lblMaKH = new JLabel("Mã khách hàng:");
 		lblMaKH.setBounds(36, 31, 97, 14);
@@ -275,30 +399,30 @@ public class mainFrame extends JFrame {
 		lblTimeIn.setBounds(620, 31, 97, 14);
 		SearchRoom.add(lblTimeIn);
 		
-		textField_3 = new JTextField();
-		textField_3.setText("dd-mm-yyyy");
-		textField_3.setHorizontalAlignment(SwingConstants.CENTER);
-		textField_3.setColumns(10);
-		textField_3.setBounds(810, 23, 211, 30);
-		SearchRoom.add(textField_3);
+		txtDayIn = new JTextField();
+		txtDayIn.setText("dd-mm-yyyy");
+		txtDayIn.setHorizontalAlignment(SwingConstants.CENTER);
+		txtDayIn.setColumns(10);
+		txtDayIn.setBounds(810, 23, 211, 30);
+		SearchRoom.add(txtDayIn);
 		
 		JLabel lblFullName = new JLabel("Họ và tên:");
 		lblFullName.setBounds(36, 81, 97, 14);
 		SearchRoom.add(lblFullName);
 		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
-		textField_4.setBounds(123, 73, 296, 30);
-		SearchRoom.add(textField_4);
+		txtFullName = new JTextField();
+		txtFullName.setColumns(10);
+		txtFullName.setBounds(123, 73, 296, 30);
+		SearchRoom.add(txtFullName);
 		
 		JLabel lblTimeOut = new JLabel("Thời gian trả:");
 		lblTimeOut.setBounds(620, 81, 97, 14);
 		SearchRoom.add(lblTimeOut);
 		
-		textField_5 = new JTextField();
-		textField_5.setColumns(10);
-		textField_5.setBounds(123, 122, 296, 30);
-		SearchRoom.add(textField_5);
+		txtIDPersonal = new JTextField();
+		txtIDPersonal.setColumns(10);
+		txtIDPersonal.setBounds(123, 122, 296, 30);
+		SearchRoom.add(txtIDPersonal);
 		
 		JLabel lblIDPersonal = new JLabel("CMND/CCCD:");
 		lblIDPersonal.setBounds(36, 130, 97, 14);
@@ -312,218 +436,410 @@ public class mainFrame extends JFrame {
 		lblPhoneNumber.setBounds(32, 180, 97, 14);
 		SearchRoom.add(lblPhoneNumber);
 		
-		textField_6 = new JTextField();
-		textField_6.setColumns(10);
-		textField_6.setBounds(125, 172, 296, 30);
-		SearchRoom.add(textField_6);
+		txtPhone = new JTextField();
+		txtPhone.setColumns(10);
+		txtPhone.setBounds(125, 172, 296, 30);
+		SearchRoom.add(txtPhone);
 		
-		JLabel lblMaKH_7 = new JLabel("Hình thức thuê:");
-		lblMaKH_7.setBounds(620, 180, 97, 14);
-		SearchRoom.add(lblMaKH_7);
+		JLabel lblTypeRent = new JLabel("Hình thức thuê:");
+		lblTypeRent.setBounds(620, 180, 97, 14);
+		SearchRoom.add(lblTypeRent);
 		
-		JComboBox cbbHinhThuc = new JComboBox();
-		cbbHinhThuc.setBounds(727, 172, 294, 30);
-		SearchRoom.add(cbbHinhThuc);
+		JComboBox<String> cbbTypeRent = new JComboBox<String>();
+		cbbTypeRent.setBounds(727, 172, 294, 30);
+		SearchRoom.add(cbbTypeRent);
+		cbbTypeRent.setModel(new DefaultComboBoxModel<String>(new String[] {"", "Theo giờ", "Qua đêm"}));
 		
-		textField_7 = new JTextField();
-		textField_7.setText("dd-mm-yyyy");
-		textField_7.setHorizontalAlignment(SwingConstants.CENTER);
-		textField_7.setColumns(10);
-		textField_7.setBounds(810, 74, 211, 30);
-		SearchRoom.add(textField_7);
+		txtDayOut = new JTextField();
+		txtDayOut.setText("dd-mm-yyyy");
+		txtDayOut.setHorizontalAlignment(SwingConstants.CENTER);
+		txtDayOut.setColumns(10);
+		txtDayOut.setBounds(810, 74, 211, 30);
+		SearchRoom.add(txtDayOut);
 		
-		textField_8 = new JTextField();
-		textField_8.setColumns(10);
-		textField_8.setBounds(729, 122, 296, 30);
-		SearchRoom.add(textField_8);
+		txtIDRoom = new JTextField();
+		txtIDRoom.setColumns(10);
+		txtIDRoom.setBounds(729, 122, 296, 30);
+		SearchRoom.add(txtIDRoom);
 		
-		JComboBox cbbTimIn = new JComboBox();
-		cbbTimIn.setBounds(730, 23, 76, 30);
-		SearchRoom.add(cbbTimIn);
+		JComboBox<String> cbbTimeIn = new JComboBox<String>();
+		cbbTimeIn.setBounds(730, 23, 76, 30);
+		SearchRoom.add(cbbTimeIn);
+        cbbTimeIn.setModel(new DefaultComboBoxModel<String>(new String[] {"", "0:00 AM", "1:00 AM", "2:00 AM", "3:00 AM", "4:00 AM", "5:00 AM", "6:00 AM", "7:00 AM", "8:00 AM", "9:00 AM", "10:00 AM", "11:00 AM", "12:00 AM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM", "6:00 PM", "7:00 PM", "8:00 PM", "9:00 PM", "10:00 PM", "11:00 PM"}));
+
 		
 		JComboBox<String> cbbTimeOut = new JComboBox<String>();
 		cbbTimeOut.setBounds(730, 73, 76, 30);
 		SearchRoom.add(cbbTimeOut);
+        cbbTimeOut.setModel(new DefaultComboBoxModel<String>(new String[] {"", "0:00 AM", "1:00 AM", "2:00 AM", "3:00 AM", "4:00 AM", "5:00 AM", "6:00 AM", "7:00 AM", "8:00 AM", "9:00 AM", "10:00 AM", "11:00 AM", "12:00 AM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM", "6:00 PM", "7:00 PM", "8:00 PM", "9:00 PM", "10:00 PM", "11:00 PM"}));
+
 		
 		JButton btnSearchCustomer = new JButton("Tìm Kiếm");
 		btnSearchCustomer.setBounds(1107, 31, 183, 68);
 		SearchRoom.add(btnSearchCustomer);
+		btnSearchCustomer.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					ArrayList<Core.Customer> listInforSearchArrayList = new ArrayList<>();
+					listInforSearchArrayList=search.searchCustomers(listCustomers, txtID.getText(),
+																					txtPhone.getText(),
+																					cbbTypeRent.getItemAt(cbbTypeRent.getSelectedIndex()).toString(),
+																					txtFullName.getText(),
+																					txtIDPersonal.getText(),
+																					txtIDRoom.getText(),
+																					txtDayIn.getText(), 
+																					txtDayOut.getText(), 
+																					convertTime(cbbTimeIn.getItemAt(cbbTimeIn.getSelectedIndex())), 
+																					convertTime(cbbTimeOut.getItemAt(cbbTimeOut.getSelectedIndex())));
+					resetTableCus();
+					System.out.println(txtID.getText());
+					if (listInforSearchArrayList.get(0).getRollNo().equals("NoneItem")) {}
+						else {
+							ShowOnTableCus(listCustomers, listRooms);
+						}
+					listInforSearchArrayList=null;
+					//System.out.println(listInforSearchArrayList.get(0).toString());
+				}
+			});
 		
 		JButton btnResetCustSearchForm = new JButton("Nhập lại");
 		btnResetCustSearchForm.setBounds(1107, 120, 90, 30);
 		SearchRoom.add(btnResetCustSearchForm);
+        btnResetCustSearchForm.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				txtID.setText("");
+				txtFullName.setText("");
+				txtIDPersonal.setText("");
+				txtPhone.setText("");
+				txtIDRoom.setText("");
+				txtDayIn.setText("dd-mm-yyyy");
+				txtDayOut.setText("dd-mm-yyyy");
+				cbbTypeRent.setSelectedIndex(0);
+				cbbTimeOut.setSelectedIndex(0);
+				cbbTypeRent.setSelectedIndex(0);
+			}
+		});
+		
 		
 		JButton btnShowAllCust = new JButton("Xem tất cả");
 		btnShowAllCust.setBounds(1200, 120, 90, 30);
 		SearchRoom.add(btnShowAllCust);
-		
+        btnShowAllCust.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				resetTableCus();
+				ShowOnTableCus(listCustomers, listRooms);
+				
+			}
+		});
+//=================================================================================//
+//===================================tab REGISTER====================================//
+        
 		JPanel jPRegister = new JPanel();
 		tabPaneMain.addTab("\u0110\u1EB7t ph\u00F2ng", null, jPRegister, null);
 		
-		JLabel jLabel7 = new JLabel();
-		jLabel7.setText("Tên KH: ");
+		JLabel lblFullName1 = new JLabel();
+		lblFullName1.setBounds(120, 40, 80, 30);
+		lblFullName1.setText("Tên khách hàng:");
 		
-		JLabel jLabel8 = new JLabel();
-		jLabel8.setText("CMND: ");
+		JLabel lblIDPersonal1 = new JLabel();
+		lblIDPersonal1.setBounds(120, 100, 80, 30);
+		lblIDPersonal1.setText("CMND:");
 		
-		JLabel jLabel9 = new JLabel();
-		jLabel9.setText("SĐT: ");
+		JLabel lblPhone1 = new JLabel();
+		lblPhone1.setBounds(120, 160, 80, 30);
+		lblPhone1.setText("SĐT:");
 		
-		JLabel jLabel14 = new JLabel();
-		jLabel14.setText("Mã KH: ");
+		txtFullName1 = new JTextField();
+		txtFullName1.setBounds(218, 40, 260, 30);
 		
-		textField_9 = new JTextField();
-		
-		textField_10 = new JTextField();
+		txtIDPersonal2 = new JTextField();
+		txtIDPersonal2.setBounds(218, 100, 260, 30);
 		
 		JLabel jLabel11 = new JLabel();
-		jLabel11.setText("Chọn loại phòng: ");
+		jLabel11.setBounds(580, 40, 100, 30);
+		jLabel11.setText("Chọn loại phòng:");
 		
 		JLabel jLabel12 = new JLabel();
-		jLabel12.setText("Số giường: ");
+		jLabel12.setBounds(580, 100, 100, 30);
+		jLabel12.setText("Số giường:");
 		
 		JLabel jLabel13 = new JLabel();
-		jLabel13.setText("Phòng: ");
+		jLabel13.setBounds(580, 160, 100, 30);
+		jLabel13.setText("Phòng:");
 		
 		JLabel jLabel16 = new JLabel();
-		jLabel16.setText("Hình thức thuê: ");
+		jLabel16.setBounds(580, 220, 100, 30);
+		jLabel16.setText("Hình thức thuê:");
 		
-		JComboBox<String> jComboBox1 = new JComboBox<String>();
+
+		JComboBox<String> cbbTypeRoom2 = new JComboBox<String>();
+		cbbTypeRoom2.setBounds(680, 40, 180, 30);
 		
-		JComboBox<String> jComboBox2 = new JComboBox<String>();
+		JComboBox<String> cbbBeds2 = new JComboBox<String>();
+		cbbBeds2.setBounds(680, 100, 180, 30);
 		
 		JLabel jLabel15 = new JLabel();
-		jLabel15.setText("Tới: ");
+		jLabel15.setBounds(980, 160, 20, 30);
+		jLabel15.setText("Tới:");
 		
-		JComboBox<String> jComboBox5 = new JComboBox<String>();
+		JComboBox<String> cbbTimeOut2 = new JComboBox<String>();
+		cbbTimeOut2.setModel(new DefaultComboBoxModel(new String[] {"", "0:00 AM", "1:00 AM", "2:00 AM", "3:00 AM", "4:00 AM", "5:00 AM", "6:00 AM", "7:00 AM", "8:00 AM", "9:00 AM", "10:00 AM", "11:00 AM", "12:00 AM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM", "6:00 PM", "7:00 PM", "8:00 PM", "9:00 PM", "10:00 PM", "11:00 PM"}));
+		cbbTimeOut2.setBounds(1000, 160, 130, 30);
 		
 		JLabel jLabel10 = new JLabel();
+		jLabel10.setBounds(980, 40, 20, 30);
 		jLabel10.setText("Từ: ");
 		
-		JComboBox<String> jComboBox4 = new JComboBox<String>();
+		JComboBox<String> cbbTimeIn2 = new JComboBox<String>();
+		cbbTimeIn2.setModel(new DefaultComboBoxModel(new String[] {"", "0:00 AM", "1:00 AM", "2:00 AM", "3:00 AM", "4:00 AM", "5:00 AM", "6:00 AM", "7:00 AM", "8:00 AM", "9:00 AM", "10:00 AM", "11:00 AM", "12:00 AM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM", "6:00 PM", "7:00 PM", "8:00 PM", "9:00 PM", "10:00 PM", "11:00 PM"}));
+		cbbTimeIn2.setBounds(1000, 40, 130, 30);
 		
-		JComboBox<String> jComboBox6 = new JComboBox<String>();
+		JComboBox<String> cbbTypeRent2 = new JComboBox<String>();
+		cbbTypeRent2.setBounds(680, 220, 180, 30);
 		
-		JComboBox<String> jComboBox3 = new JComboBox<String>();
+		JComboBox<String> cbbIDRoom2 = new JComboBox<String>();
+		cbbIDRoom2.setBounds(680, 160, 180, 30);
 		
-		textField_11 = new JTextField();
+		txtPhone2 = new JTextField();
+		txtPhone2.setBounds(218, 160, 260, 30);
 		
-		textField_12 = new JTextField();
+		JButton btnRegister = new JButton();
+		btnRegister.setBounds(950, 450, 130, 50);
+		btnRegister.setText("Đặt");
 		
-		JButton jButton3 = new JButton();
-		jButton3.setText("Kiểm tra");
+		JButton btnCancel = new JButton();
+		btnCancel.setBounds(1100, 450, 130, 50);
+		btnCancel.setText("Hủy");
+		jPRegister.setLayout(null);
+		jPRegister.add(lblFullName1);
+		jPRegister.add(lblIDPersonal1);
+		jPRegister.add(lblPhone1);
+		jPRegister.add(txtFullName1);
+		jPRegister.add(txtIDPersonal2);
+		jPRegister.add(jLabel11);
+		jPRegister.add(jLabel12);
+		jPRegister.add(jLabel13);
+		jPRegister.add(jLabel16);
+		jPRegister.add(cbbTypeRoom2);
+		jPRegister.add(cbbBeds2);
+		jPRegister.add(jLabel15);
+		jPRegister.add(cbbTimeOut2);
+		jPRegister.add(jLabel10);
+		jPRegister.add(cbbTimeIn2);
+		jPRegister.add(cbbTypeRent2);
+		jPRegister.add(cbbIDRoom2);
+		jPRegister.add(txtPhone2);
+		jPRegister.add(btnRegister);
+		jPRegister.add(btnCancel);
+		roomSuggest=listRooms;
+		cbbTypeRoom2.setModel(new DefaultComboBoxModel<>(setOptionTypeRoom(roomSuggest)));
+		cbbBeds2.setModel(new DefaultComboBoxModel<>(setOptionBeds(roomSuggest)));
+		cbbIDRoom2.setModel(new DefaultComboBoxModel<>(setOptionID(roomSuggest)));
+		cbbTypeRent2.setModel(new DefaultComboBoxModel<>(new String[] {"","Theo giờ","Qua đêm"}));
 		
-		JButton jButton1 = new JButton();
-		jButton1.setText("Đặt");
+		JPanel pPriceSuggest = new JPanel();
+		pPriceSuggest.setBounds(244, 333, 330, 221);
+		jPRegister.add(pPriceSuggest);
+		pPriceSuggest.setLayout(null);
 		
-		JButton jButton2 = new JButton();
-		jButton2.setText("Hủy");
-		GroupLayout gl_jPRegister = new GroupLayout(jPRegister);
-		gl_jPRegister.setHorizontalGroup(
-			gl_jPRegister.createParallelGroup(Alignment.TRAILING)
-				.addGap(0, 1332, Short.MAX_VALUE)
-				.addGroup(gl_jPRegister.createSequentialGroup()
-					.addGap(120)
-					.addGroup(gl_jPRegister.createParallelGroup(Alignment.TRAILING)
-						.addComponent(jLabel7)
-						.addComponent(jLabel8)
-						.addComponent(jLabel9)
-						.addComponent(jLabel14))
-					.addGap(18)
-					.addGroup(gl_jPRegister.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_jPRegister.createSequentialGroup()
-							.addGroup(gl_jPRegister.createParallelGroup(Alignment.LEADING)
-								.addComponent(textField_9, GroupLayout.PREFERRED_SIZE, 259, GroupLayout.PREFERRED_SIZE)
-								.addComponent(textField_10, GroupLayout.PREFERRED_SIZE, 259, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.RELATED, 120, Short.MAX_VALUE)
-							.addGroup(gl_jPRegister.createParallelGroup(Alignment.LEADING)
-								.addComponent(jLabel11)
-								.addComponent(jLabel12, Alignment.TRAILING)
-								.addComponent(jLabel13, Alignment.TRAILING)
-								.addComponent(jLabel16, Alignment.TRAILING))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_jPRegister.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_jPRegister.createSequentialGroup()
-									.addGroup(gl_jPRegister.createParallelGroup(Alignment.LEADING)
-										.addComponent(jComboBox1, GroupLayout.PREFERRED_SIZE, 173, GroupLayout.PREFERRED_SIZE)
-										.addComponent(jComboBox2, GroupLayout.PREFERRED_SIZE, 173, GroupLayout.PREFERRED_SIZE))
-									.addGap(115)
-									.addGroup(gl_jPRegister.createParallelGroup(Alignment.LEADING, false)
-										.addGroup(gl_jPRegister.createSequentialGroup()
-											.addComponent(jLabel15)
-											.addPreferredGap(ComponentPlacement.RELATED)
-											.addComponent(jComboBox5, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-										.addGroup(gl_jPRegister.createSequentialGroup()
-											.addComponent(jLabel10)
-											.addPreferredGap(ComponentPlacement.RELATED)
-											.addComponent(jComboBox4, GroupLayout.PREFERRED_SIZE, 134, GroupLayout.PREFERRED_SIZE))))
-								.addGroup(gl_jPRegister.createParallelGroup(Alignment.TRAILING, false)
-									.addComponent(jComboBox6, Alignment.LEADING, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addComponent(jComboBox3, Alignment.LEADING, 0, 173, Short.MAX_VALUE)))
-							.addGap(0, 240, Short.MAX_VALUE))
-						.addGroup(gl_jPRegister.createSequentialGroup()
-							.addGroup(gl_jPRegister.createParallelGroup(Alignment.LEADING)
-								.addComponent(textField_11, GroupLayout.PREFERRED_SIZE, 259, GroupLayout.PREFERRED_SIZE)
-								.addComponent(textField_12, GroupLayout.PREFERRED_SIZE, 258, GroupLayout.PREFERRED_SIZE))
-							.addGap(0, 894, Short.MAX_VALUE))))
-				.addGroup(gl_jPRegister.createSequentialGroup()
-					.addContainerGap(668, Short.MAX_VALUE)
-					.addComponent(jButton3, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE)
-					.addGap(107)
-					.addComponent(jButton1, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE)
-					.addGap(92)
-					.addComponent(jButton2, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE)
-					.addGap(105))
-		);
-		gl_jPRegister.setVerticalGroup(
-			gl_jPRegister.createParallelGroup(Alignment.LEADING)
-				.addGap(0, 808, Short.MAX_VALUE)
-				.addGroup(gl_jPRegister.createSequentialGroup()
-					.addGap(36)
-					.addGroup(gl_jPRegister.createParallelGroup(Alignment.BASELINE)
-						.addComponent(jLabel7)
-						.addComponent(jLabel11)
-						.addComponent(textField_9, GroupLayout.PREFERRED_SIZE, 47, GroupLayout.PREFERRED_SIZE)
-						.addComponent(jComboBox1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(jLabel10)
-						.addComponent(jComboBox4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGroup(gl_jPRegister.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_jPRegister.createSequentialGroup()
-							.addGap(67)
-							.addGroup(gl_jPRegister.createParallelGroup(Alignment.BASELINE)
-								.addComponent(jLabel12)
-								.addComponent(jComboBox2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(jLabel15)
-								.addComponent(jComboBox5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(65)
-							.addGroup(gl_jPRegister.createParallelGroup(Alignment.BASELINE)
-								.addComponent(jComboBox3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(jLabel13)))
-						.addGroup(gl_jPRegister.createSequentialGroup()
-							.addGap(77)
-							.addGroup(gl_jPRegister.createParallelGroup(Alignment.LEADING)
-								.addComponent(textField_10, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
-								.addComponent(jLabel8))))
-					.addGap(17)
-					.addGroup(gl_jPRegister.createParallelGroup(Alignment.BASELINE)
-						.addComponent(jLabel9)
-						.addComponent(textField_11, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_jPRegister.createParallelGroup(Alignment.BASELINE)
-						.addComponent(jComboBox6, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(jLabel16))
-					.addGap(49)
-					.addGroup(gl_jPRegister.createParallelGroup(Alignment.BASELINE)
-						.addComponent(jLabel14)
-						.addComponent(textField_12, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, 190, Short.MAX_VALUE)
-					.addGroup(gl_jPRegister.createParallelGroup(Alignment.BASELINE)
-						.addComponent(jButton3)
-						.addComponent(jButton1)
-						.addComponent(jButton2))
-					.addGap(160))
-		);
-		jPRegister.setLayout(gl_jPRegister);
+		JLabel lblTitlePrice = new JLabel("Thông tin thanh toán");
+		lblTitlePrice.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblTitlePrice.setBounds(10, 5, 310, 23);
+		lblTitlePrice.setHorizontalAlignment(SwingConstants.CENTER);
+		pPriceSuggest.add(lblTitlePrice);
+		
+		
+		JLabel lblDetail = new JLabel("");
+		lblDetail.setHorizontalAlignment(SwingConstants.LEFT);
+		lblDetail.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblDetail.setBounds(10, 39, 310, 59);
+		pPriceSuggest.add(lblDetail);
+		
+		JLabel lblTotalPay = new JLabel("");
+		lblTotalPay.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblTotalPay.setBounds(10, 172, 310, 38);
+		pPriceSuggest.add(lblTotalPay);
+		
+		JLabel lblDetail2 = new JLabel("");
+		lblDetail2.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblDetail2.setBounds(10, 109, 310, 52);
+		pPriceSuggest.add(lblDetail2);
+		
+		
+		cbbTypeRoom2.addItemListener(new  ItemListener() {
+			
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				roomSuggest=search.SearchRoom(roomSuggest,"","Trống" ,"",cbbTypeRoom2.getItemAt(cbbTypeRoom2.getSelectedIndex()), "");
+				cbbBeds2.setModel(new DefaultComboBoxModel<>(setOptionBeds(roomSuggest)));
+				cbbIDRoom2.setModel(new DefaultComboBoxModel<>(setOptionID(roomSuggest)));
+				if (cbbTimeIn2.getSelectedIndex()==0 | cbbTimeOut2.getSelectedIndex()==0) {
+					if(cbbTypeRent2.getItemAt(cbbTypeRent2.getSelectedIndex()).equals(""))
+					{
+					String min1h = search.searchMinPrice(roomSuggest, "Theo giờ");
+					String minOver= search.searchMinPrice(roomSuggest, "Qua đêm");
+					lblDetail.setText("Giá theo giờ thấp nhất: "+min1h);
+					lblDetail2.setText(	"Giá qua đêm thấp nhất: " +minOver);
+					}
+					if (cbbTypeRent2.getItemAt(cbbTypeRent2.getSelectedIndex()).equals("Theo giờ")) {
+						String min = search.searchMinPrice(roomSuggest, "Theo giờ");
+						lblDetail.setText("Giá theo giờ thấp nhất: "+min);
+					}
+					if (cbbTypeRent2.getItemAt(cbbTypeRent2.getSelectedIndex()).equals("Qua đêm")) {
+						String min = search.searchMinPrice(roomSuggest, "Qua đêm");
+						lblDetail.setText("Giá qua đêm thấp nhất: "+min);
+					}
+				}else {
+					int value= calTime(cbbTimeIn2.getItemAt(cbbTimeIn2.getSelectedIndex()), cbbTimeOut2.getItemAt(cbbTimeOut2.getSelectedIndex()));
+					if(cbbTypeRent2.getItemAt(cbbTypeRent2.getSelectedIndex()).equals(""))
+					{
+					String min1h = search.searchMinPrice(roomSuggest, "Theo giờ");
+					String minOver= search.searchMinPrice(roomSuggest, "Qua đêm");
+					lblDetail.setText("Giá theo giờ thấp nhất: "+String.valueOf(Integer.valueOf(min1h)*value));
+					lblDetail2.setText("Giá qua đêm thấp nhất: " +String.valueOf(Integer.valueOf(minOver)*value));
+					}
+					if (cbbTypeRent2.getItemAt(cbbTypeRent2.getSelectedIndex()).equals("Theo giờ")) {
+						String min = search.searchMinPrice(roomSuggest, "Theo giờ");
+						lblDetail.setText("Giá theo giờ thấp nhất: "+String.valueOf(Integer.valueOf(min)*value));
+					}
+					if (cbbTypeRent2.getItemAt(cbbTypeRent2.getSelectedIndex()).equals("Qua đêm")) {
+						String min = search.searchMinPrice(roomSuggest, "Qua đêm");
+						lblDetail.setText("Giá qua đêm thấp nhất: "+String.valueOf(Integer.valueOf(min)*value));
+					}
+				}
+			}
+		});
+		cbbBeds2.addItemListener(new ItemListener() {
+			
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				roomSuggest=search.SearchRoom(roomSuggest, "", "Trống",cbbBeds2.getItemAt(cbbBeds2.getSelectedIndex()), "","");
+				cbbTypeRoom2.setModel(new DefaultComboBoxModel<>(setOptionTypeRoom(roomSuggest)));
+				cbbIDRoom2.setModel(new DefaultComboBoxModel<>(setOptionID(roomSuggest)));
+				if (cbbTimeIn2.getSelectedIndex()==0 | cbbTimeOut2.getSelectedIndex()==0) {
+					if(cbbTypeRent2.getItemAt(cbbTypeRent2.getSelectedIndex()).equals(""))
+					{
+					String min1h = search.searchMinPrice(roomSuggest, "Theo giờ");
+					String minOver= search.searchMinPrice(roomSuggest, "Qua đêm");
+					lblDetail.setText("Giá theo giờ thấp nhất: "+min1h);
+					lblDetail2.setText(	"Giá qua đêm thấp nhất: " +minOver);
+					}
+					if (cbbTypeRent2.getItemAt(cbbTypeRent2.getSelectedIndex()).equals("Theo giờ")) {
+						String min = search.searchMinPrice(roomSuggest, "Theo giờ");
+						lblDetail.setText("Giá theo giờ thấp nhất: "+min);
+					}
+					if (cbbTypeRent2.getItemAt(cbbTypeRent2.getSelectedIndex()).equals("Qua đêm")) {
+						String min = search.searchMinPrice(roomSuggest, "Qua đêm");
+						lblDetail.setText("Giá qua đêm thấp nhất: "+min);
+					}
+				}else {
+					int value= calTime(cbbTimeIn2.getItemAt(cbbTimeIn2.getSelectedIndex()), cbbTimeOut2.getItemAt(cbbTimeOut2.getSelectedIndex()));
+					if(cbbTypeRent2.getItemAt(cbbTypeRent2.getSelectedIndex()).equals(""))
+					{
+					String min1h = search.searchMinPrice(roomSuggest, "Theo giờ");
+					String minOver= search.searchMinPrice(roomSuggest, "Qua đêm");
+					lblDetail.setText("Giá theo giờ thấp nhất: "+String.valueOf(Integer.valueOf(min1h)*value));
+					lblDetail2.setText("Giá qua đêm thấp nhất: " +String.valueOf(Integer.valueOf(minOver)*value));
+					}
+					if (cbbTypeRent2.getItemAt(cbbTypeRent2.getSelectedIndex()).equals("Theo giờ")) {
+						String min = search.searchMinPrice(roomSuggest, "Theo giờ");
+						lblDetail.setText("Giá theo giờ thấp nhất: "+String.valueOf(Integer.valueOf(min)*value));
+					}
+					if (cbbTypeRent2.getItemAt(cbbTypeRent2.getSelectedIndex()).equals("Qua đêm")) {
+						String min = search.searchMinPrice(roomSuggest, "Qua đêm");
+						lblDetail.setText("Giá qua đêm thấp nhất: "+String.valueOf(Integer.valueOf(min)*value));
+					}
+				}
+			}
+		});
+		cbbTypeRent2.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (cbbTimeIn2.getSelectedIndex()==0 | cbbTimeOut2.getSelectedIndex()==0) {
+					if(cbbTypeRent2.getItemAt(cbbTypeRent2.getSelectedIndex()).equals(""))
+					{
+					String min1h = search.searchMinPrice(roomSuggest, "Theo giờ");
+					String minOver= search.searchMinPrice(roomSuggest, "Qua đêm");
+					lblDetail.setText("Giá theo giờ thấp nhất: "+min1h);
+					lblDetail2.setText(	"Giá qua đêm thấp nhất: " +minOver);
+					}
+					if (cbbTypeRent2.getItemAt(cbbTypeRent2.getSelectedIndex()).equals("Theo giờ")) {
+						String min = search.searchMinPrice(roomSuggest, "Theo giờ");
+						lblDetail.setText("Giá theo giờ thấp nhất: "+min);
+					}
+					if (cbbTypeRent2.getItemAt(cbbTypeRent2.getSelectedIndex()).equals("Qua đêm")) {
+						String min = search.searchMinPrice(roomSuggest, "Qua đêm");
+						lblDetail.setText("Giá qua đêm thấp nhất: "+min);
+					}
+				}else {
+					int value= calTime(cbbTimeIn2.getItemAt(cbbTimeIn2.getSelectedIndex()), cbbTimeOut2.getItemAt(cbbTimeOut2.getSelectedIndex()));
+					if(cbbTypeRent2.getItemAt(cbbTypeRent2.getSelectedIndex()).equals(""))
+					{
+					String min1h = search.searchMinPrice(roomSuggest, "Theo giờ");
+					String minOver= search.searchMinPrice(roomSuggest, "Qua đêm");
+					lblDetail.setText("Giá theo giờ thấp nhất: "+String.valueOf(Integer.valueOf(min1h)*value));
+					lblDetail2.setText("Giá qua đêm thấp nhất: " +String.valueOf(Integer.valueOf(minOver)*value));
+					}
+					if (cbbTypeRent2.getItemAt(cbbTypeRent2.getSelectedIndex()).equals("Theo giờ")) {
+						String min = search.searchMinPrice(roomSuggest, "Theo giờ");
+						lblDetail.setText("Giá theo giờ thấp nhất: "+String.valueOf(Integer.valueOf(min)*value));
+					}
+					if (cbbTypeRent2.getItemAt(cbbTypeRent2.getSelectedIndex()).equals("Qua đêm")) {
+						String min = search.searchMinPrice(roomSuggest, "Qua đêm");
+						lblDetail.setText("Giá qua đêm thấp nhất: "+String.valueOf(Integer.valueOf(min)*value));
+					}
+				}
+			}
+		});
+		cbbIDRoom2.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (cbbTimeIn2.getSelectedIndex()==0 | cbbTimeOut2.getSelectedIndex()==0) {
+					if(cbbTypeRent2.getItemAt(cbbTypeRent2.getSelectedIndex()).equals(""))
+					{
+					String min1h = search.searchMinPrice(roomSuggest, "Theo giờ");
+					String minOver= search.searchMinPrice(roomSuggest, "Qua đêm");
+					lblDetail.setText("Giá theo giờ thấp nhất: "+min1h);
+					lblDetail2.setText(	"Giá qua đêm thấp nhất: " +minOver);
+					}
+					if (cbbTypeRent2.getItemAt(cbbTypeRent2.getSelectedIndex()).equals("Theo giờ")) {
+						String min = search.searchMinPrice(roomSuggest, "Theo giờ");
+						lblDetail.setText("Giá theo giờ thấp nhất: "+min);
+					}
+					if (cbbTypeRent2.getItemAt(cbbTypeRent2.getSelectedIndex()).equals("Qua đêm")) {
+						String min = search.searchMinPrice(roomSuggest, "Qua đêm");
+						lblDetail.setText("Giá qua đêm thấp nhất: "+min);
+					}
+				}else {
+					int value= calTime(cbbTimeIn2.getItemAt(cbbTimeIn2.getSelectedIndex()), cbbTimeOut2.getItemAt(cbbTimeOut2.getSelectedIndex()));
+					if(cbbTypeRent2.getItemAt(cbbTypeRent2.getSelectedIndex()).equals(""))
+					{
+					String min1h = search.searchMinPrice(roomSuggest, "Theo giờ");
+					String minOver= search.searchMinPrice(roomSuggest, "Qua đêm");
+					lblDetail.setText("Giá theo giờ thấp nhất: "+String.valueOf(Integer.valueOf(min1h)*value));
+					lblDetail2.setText("Giá qua đêm thấp nhất: " +String.valueOf(Integer.valueOf(minOver)*value));
+					}
+					if (cbbTypeRent2.getItemAt(cbbTypeRent2.getSelectedIndex()).equals("Theo giờ")) {
+						String min = search.searchMinPrice(roomSuggest, "Theo giờ");
+						lblDetail.setText("Giá theo giờ thấp nhất: "+String.valueOf(Integer.valueOf(min)*value));
+					}
+					if (cbbTypeRent2.getItemAt(cbbTypeRent2.getSelectedIndex()).equals("Qua đêm")) {
+						String min = search.searchMinPrice(roomSuggest, "Qua đêm");
+						lblDetail.setText("Giá qua đêm thấp nhất: "+String.valueOf(Integer.valueOf(min)*value));
+					}
+				}
+			}
+				
+		});
+		
+		
 	}
 	 public void resetTableCus() {
      	String[] colTableCus= { "STT", "Mã Kh", "Họ và tên", "CMND", "Số điện thoại", "Thời gian nhận", "Thời gian trả",
@@ -570,18 +886,27 @@ public class mainFrame extends JFrame {
          	}
          tableCust.setModel(tableModel);
 		}
-     public String[] setOptionBeds(ArrayList<Core.Room> dataRooms) {
+     public String[] setOptionBeds(ArrayList<Room> dataRooms) {
 			String[] option = new String[] {""};
-			for (Core.Room room : dataRooms) {
+			for (Room room : dataRooms) {
 				if (checkList(option, room.getBeds())) {
 					option=addElement(option, room.getBeds());
 				}
 			}
 			return option;
 		}
-     public String[] setOptionTypeRoom(ArrayList<Core.Room> dataRooms) {
+     public String[] setOptionID(ArrayList<Room> dataRooms) {
+			String[] option = new String[] {""};
+			for (Room room : dataRooms) {
+				if (checkList(option, room.getiDsRoom())) {
+					option=addElement(option, room.getiDsRoom());
+				}
+			}
+			return option;
+		}
+     public String[] setOptionTypeRoom(ArrayList<Room> dataRooms) {
 			String[] optionType = new String[] {""};
-			for (Core.Room room : dataRooms) {
+			for (Room room : dataRooms) {
 				if (checkList(optionType, room.getTypeRoom())) {
 					optionType=addElement(optionType, room.getTypeRoom());
 				}
@@ -601,4 +926,24 @@ public class mainFrame extends JFrame {
 			}
 			return true;
 		}
+     public String convertTime(String dataTime) {
+		if(dataTime.equals("")) return "0";
+		else {
+    	 String[] split= dataTime.split(" ");
+    	 if (split[1].equals("PM")) {
+    		String[] split1= split[0].split(":");
+    		split1[0]=String.valueOf(Integer.valueOf(split1[0])+12);
+    		return (split1[0]+":"+split1[1]);
+    	 	}else return split[0];
+    	 }
+	}
+     public int calTime(String startTime, String endTime) {
+    	 int Time=0;
+		if (Integer.valueOf(convertTime(endTime))<Integer.valueOf(convertTime(startTime))) {
+			Time=24-Integer.valueOf(convertTime(startTime))+ Integer.valueOf(convertTime(endTime));
+		}else {
+			Time=Integer.valueOf(convertTime(endTime))- Integer.valueOf(convertTime(startTime));
+		}
+		return Time;
+	}
 }

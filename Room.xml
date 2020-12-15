@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RoomList>
+	<Room>
+		<iDsRoom>001</iDsRoom>
+		<status>Trống</status>
+		<beds>2</beds>
+		<typeRoom>normal</typeRoom>
+		<price1Hour>7524000</price1Hour>
+		<priceOverNight>544563</priceOverNight>
+	</Room>
+</RoomList>
