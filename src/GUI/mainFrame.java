@@ -878,7 +878,7 @@ public class mainFrame extends JFrame {
 								listCustomers.add(temp);
 								String iDRoomString= cbbIDRoom2.getItemAt(cbbIDRoom2.getSelectedIndex());
 								listRooms=action.setStautus(listRooms, iDRoomString);
-								input.exportCustomer(listCustomers);
+								input.exportRoom(listRooms);
 								ShowOnTableCus(listCustomers, listRooms);
 								ShowOnTableRoom(listRooms);
 								JOptionPane.showMessageDialog(panel1,  "ID của bạn: "+rollNo+"\nID phòng bạn là: "+iDRoomString+
@@ -906,7 +906,7 @@ public class mainFrame extends JFrame {
 						input.exportCustomer(listCustomers);
 						String iDRoomString= cbbIDRoom2.getItemAt(cbbIDRoom2.getSelectedIndex());
 						listRooms=action.setStautus(listRooms, iDRoomString);
-						input.exportCustomer(listCustomers);
+						input.exportRoom(listRooms);
 						ShowOnTableCus(listCustomers, listRooms);
 						ShowOnTableRoom(listRooms);
 						JOptionPane.showMessageDialog(panel1,  "ID của bạn: "+rollNo+"\nID phòng bạn là: "+iDRoomString+
