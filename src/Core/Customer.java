@@ -112,7 +112,7 @@ public class Customer implements Serializable{
 	}
 	public long payment(ArrayList<Room> dataRoom) {
 		long amountPaid = 0;
-		if(typeRent.equals("1Hour")) amountPaid= valueSearch(dataRoom)*calTime();
+		if(typeRent.equals("Theo giờ")) amountPaid= valueSearch(dataRoom)*calTime();
 		else {
 			amountPaid= valueSearch2(dataRoom);
 		}

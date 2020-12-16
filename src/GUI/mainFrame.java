@@ -1,9 +1,6 @@
 package GUI;
 
-import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -77,22 +74,6 @@ public class mainFrame extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					mainFrame frame = new mainFrame();
-					frame.setVisible(true);
-				    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-					  frame.setSize(screenSize.width, screenSize.height);
-					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	/**
 	 * Create the frame.
 	 */
@@ -102,6 +83,7 @@ public class mainFrame extends JFrame {
         listCustomers=input.importCustomer();
         listRooms=action.autoCheckTime(listRooms, listCustomers);
  	   	input.exportRoom(listRooms);
+ 	   	//ShowOnTableRoom(listRooms);
 		for (Customer customer : listCustomers) {
 			hashMapCustHashMap.put(customer.getiD(), customer);
 		}
@@ -117,6 +99,7 @@ public class mainFrame extends JFrame {
                //call the method
         	   listRooms=action.autoCheckTime(listRooms, listCustomers);
         	   input.exportRoom(listRooms);
+        	   //ShowOnTableRoom(listRooms);
            }
         }, begin, timeInterval);
 		setSize(1373, 788);
@@ -278,40 +261,40 @@ public class mainFrame extends JFrame {
 				System.out.println(cbbStatus.getItemAt(cbbStatus.getSelectedIndex()));
 				System.out.println(cbbTypeRent1.getItemAt(cbbTypeRent1.getSelectedIndex()));
 				System.out.println(cbbTypeRoom.getItemAt(cbbTypeRoom.getSelectedIndex()));
-				if (cbbTypeRent1.getSelectedIndex()==2) {
+				if (cbbTypeRent1.getSelectedIndex()==1) {
 				        Collections.sort(listEndSearchRooms, new Comparator<Room>() {
 				        	@Override
 				            public int compare(Room r1, Room r2) {
-				                if (r1.getPrice1Hour() < r2.getPrice1Hour()) {
-				                    return -1;
+				                if (r1.getPrice1Hour() > r2.getPrice1Hour()) {
+				                    return 1;
 				                } else {
 				                    if (r1.getPrice1Hour() == r2.getPrice1Hour()) {
 				                        return 0;
 				                    } else {
-				                        return 1;
+				                        return -1;
 				                    }
 				                }
 				            }
 				        });
 					}
-				if (cbbTypeRent1.getSelectedIndex()==3) {
+				if (cbbTypeRent1.getSelectedIndex()==2) {
 					Collections.sort(listEndSearchRooms, new Comparator<Room>() {
 						@Override
 			            public int compare(Room r1, Room r2) {
-			                if (r1.getPriceOverNight() < r2.getPriceOverNight()) {
-			                    return -1;
+			                if (r1.getPriceOverNight() > r2.getPriceOverNight()) {
+			                    return 1;
 			                } else {
 			                    if (r1.getPriceOverNight() == r2.getPriceOverNight()) {
 			                        return 0;
 			                    } else {
-			                        return 1;
+			                        return -1;
 			                    }
 			                }
 			            }
 					});
 					
 				}
-				if (cbbTypeRent1.getSelectedIndex()==4) {
+				if (cbbTypeRent1.getSelectedIndex()==3) {
 			        Collections.sort(listEndSearchRooms, new Comparator<Room>() {
 			        	@Override
 			            public int compare(Room r1, Room r2) {
@@ -327,7 +310,7 @@ public class mainFrame extends JFrame {
 			            }
 			        });
 				}
-				if (cbbTypeRent1.getSelectedIndex()==5) {
+				if (cbbTypeRent1.getSelectedIndex()==4) {
 					Collections.sort(listEndSearchRooms, new Comparator<Room>() {
 						@Override
 			            public int compare(Room r1, Room r2) {
@@ -653,7 +636,7 @@ public class mainFrame extends JFrame {
 		jPRegister.add(txtPhone2);
 		jPRegister.add(btnRegister);
 		jPRegister.add(btnCancel);
-		roomSuggest=listRooms;
+		roomSuggest=search.SearchRoom(listRooms, "", "Trống", "", "", "");
 		cbbTypeRoom2.setModel(new DefaultComboBoxModel<>(setOptionTypeRoom(roomSuggest)));
 		cbbBeds2.setModel(new DefaultComboBoxModel<>(setOptionBeds(roomSuggest)));
 		cbbIDRoom2.setModel(new DefaultComboBoxModel<>(setOptionID(roomSuggest)));
@@ -912,7 +895,9 @@ public class mainFrame extends JFrame {
 						JOptionPane.showMessageDialog(panel1,  "ID của bạn: "+rollNo+"\nID phòng bạn là: "+iDRoomString+
 																"\nLoại phòng: "+cbbTypeRoom2.getItemAt(cbbTypeRoom2.getSelectedIndex())+
 																"\nSố giường: "+cbbBeds2.getItemAt(cbbBeds2.getSelectedIndex())+
-																"\nHình thức thuê: "+temp.getTypeRent()
+																"\nHình thức thuê: "+temp.getTypeRent()+
+																"\nTổng số tiền: "+temp.payment(listRooms)
+																
 																, "About", 
 	                              JOptionPane.INFORMATION_MESSAGE);
 					}
@@ -978,8 +963,8 @@ public class mainFrame extends JFrame {
          					  listCustomers.get(i).getFullName(),
          					  listCustomers.get(i).getiD(),
          					  listCustomers.get(i).getPhoneNumber(),
-         					  listCustomers.get(i).getInOut().getdateIn(),
-         					  listCustomers.get(i).getInOut().getdateOut(),
+         					  listCustomers.get(i).getInOut().getdateIn()+" "+listCustomers.get(i).getInOut().getTimeIn(),
+         					  listCustomers.get(i).getInOut().getdateOut()+" "+listCustomers.get(i).getInOut().getTimeOut() ,
          					  listCustomers.get(i).getTypeRent(),
          					  listCustomers.get(i).getiDRoom(),
          					  listCustomers.get(i).payment(listRooms)};

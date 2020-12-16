@@ -1,31 +1,37 @@
 package Core;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.regex.Matcher;
+
 
 import GUI.mainFrame;
 
 
 public class Main {
 
-		public static void main(String[] args) throws IOException, ParseException{
-			ArrayList<Customer> a = new ArrayList<>();
-			ArrayList<Room> b,c = new ArrayList<Room>();
+//		public static void main(String[] args) throws IOException, ParseException{
+//			ArrayList<Customer> a = new ArrayList<>();
+//			ArrayList<Room> b,c = new ArrayList<Room>();
 			//DateFormat simpleDateFormat = new SimpleDateFormat("dd-mm-yyyy HH:mm");
 //			b.add(new Room("002", true, 2, "2", 524000));
 //			b.add(new Room("003", false, 1, "3", 84864132));
 //			b.add(new Room("004", true, 2, "1", 525424000));
 			//a.add(new Customer("01", "Võ Quốc Toàn", "26145716489", "0983243953", "1Hour", "001", new InfoTime("10:25", "22-06-2020","9:00" ,"23-06-2020" )));
 //			b.add(new Room("001", true, 2, "normal", 7524000, 544563));
-			DataFile outFile= new DataFile();
+//			DataFile outFile= new DataFile();
 			//outFile.exportCustomer(a);
-			a=outFile.importCustomer();
-			b=outFile.importRoom();
+//			a=outFile.importCustomer();
+//			b=outFile.importRoom();
 //			OptionSearch search =new OptionSearch();
 //			System.out.println(a.get(0).getInOut().getdateIn()+" "+a.get(0).getInOut().getTimeIn());
 //			c= search.SearchRoom(b, "001", "None", "None",  "None",  "None",  "None");
@@ -59,11 +65,10 @@ public class Main {
 //			OptionSearch s= new OptionSearch();
 //			String kString=s.searchMinPrice(b, "Theo giờ");
 //			System.out.println(kString);
-			mainFrame n= new mainFrame();
-			if (!n.isNumeric("1644a")) {
-				System.out.println("1");
-			}
-		}
+//			mainFrame n= new mainFrame();
+//			if (!n.isNumeric("1644a")) {
+//				System.out.println("1");
+//			}
 //	     public static String convertTime(String dataTime) {
 //	 		if(dataTime.equals("")) return "0";
 //	 		else {
@@ -76,6 +81,20 @@ public class Main {
 //	     	 	}else return split[0];
 //	     	 }
 //	 	}
+
+		   public static void main(String[] args) 
+		   throws Exception {
+		      URL url = new URL("https://raw.githubusercontent.com/vqtoan1807/QLKS/main/Room.xml");
+		      System.out.println("URL is " + url.toString());
+		      System.out.println("protocol is " 
+		      + url.getProtocol());
+		      System.out.println("file name is " + url.getFile());
+		      System.out.println("host is " + url.getHost());
+		      System.out.println("path is " + url.getPath());
+		      System.out.println("port is " + url.getPort());
+		      System.out.println("default port is " 
+		      + url.getDefaultPort());
+		   }
 		public static boolean check(Room data, String method, String key) {
 			boolean flag= false;
 			if (key=="None") flag= true;

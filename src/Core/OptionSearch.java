@@ -124,6 +124,7 @@ public class OptionSearch {
 		int distance=0;
 		if (method.equalsIgnoreCase("Price1Hour")) {
 			nearNumber=dataRoom.get(0).getPrice1Hour();
+			distance=dataRoom.get(0).getPrice1Hour();
 			for (Room room : dataRoom) {
 				if (Math.abs(numberIn1-room.getPrice1Hour())< distance) {
 					nearNumber=room.getPrice1Hour();
@@ -133,6 +134,7 @@ public class OptionSearch {
 		}
 		if (method.equalsIgnoreCase("PriceOverNight")) {
 			nearNumber=dataRoom.get(0).getPrice1Hour();
+			distance=dataRoom.get(0).getPrice1Hour();
 				for (Room room : dataRoom) {
 					if (Math.abs(numberIn1-room.getPriceOverNight())< distance) {
 						nearNumber=room.getPriceOverNight();

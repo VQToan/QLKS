@@ -42,8 +42,16 @@ public class OptionAction {
 					tempRoom=null;
 					}
 			}
+	}else {
+		for (int i= 0;i< dataRooms.size(); i++) {
+			if(customer.getiDRoom().equals(dataRooms.get(i).getiDsRoom())) {
+				Room tempRoom= dataRooms.get(i);
+				tempRoom.setStatus("Đã đặt");
+				dataRooms.set(i,tempRoom);
+				tempRoom=null;
+				}
+		}
 	}
-		return dataRooms;
 	}
 	return dataRooms;
 	}
