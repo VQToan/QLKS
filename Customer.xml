@@ -2,7 +2,7 @@
 <CustomerList>
 <Customer>
 		<rollNo>01</rollNo>
-		<fullName>Võ Quốc Toàn  </fullName>
+		<fullName>Võ Quốc Toàn     </fullName>
 		<iD>a26145716489</iD>
 		<phoneNumber>a983243953</phoneNumber>
 		<iDRoom>001</iDRoom>
@@ -12,6 +12,45 @@
 			<dateIn>22-06-2020</dateIn>
 			<timeOut>9:00</timeOut>
 			<dateout>23-06-2020</dateout>
+		</inOut>
+	</Customer><Customer>
+		<rollNo>null</rollNo>
+		<fullName>Võ Quốc Toàn   </fullName>
+		<iD>46541531354</iD>
+		<phoneNumber>56565151125</phoneNumber>
+		<iDRoom>001</iDRoom>
+		<typeRent>Qua đêm</typeRent>
+		<inOut>
+			<timeIn>13:59</timeIn>
+			<dateIn>16-12-2020</dateIn>
+			<timeOut>13:59</timeOut>
+			<dateout>17-12-2020</dateout>
+		</inOut>
+	</Customer><Customer>
+		<rollNo>KH999</rollNo>
+		<fullName>Võ Quốc Toàn  </fullName>
+		<iD>545415125145</iD>
+		<phoneNumber>56465456465</phoneNumber>
+		<iDRoom>001</iDRoom>
+		<typeRent>Qua đêm</typeRent>
+		<inOut>
+			<timeIn>14:09</timeIn>
+			<dateIn>16-12-2020</dateIn>
+			<timeOut>14:09</timeOut>
+			<dateout>17-12-2020</dateout>
+		</inOut>
+	</Customer><Customer>
+		<rollNo>KH0</rollNo>
+		<fullName>Nguyễn Mạnh Lờ </fullName>
+		<iD>165465454654</iD>
+		<phoneNumber>1545646546</phoneNumber>
+		<iDRoom>001</iDRoom>
+		<typeRent>Qua đêm</typeRent>
+		<inOut>
+			<timeIn>15:02</timeIn>
+			<dateIn>16-12-2020</dateIn>
+			<timeOut>15:02</timeOut>
+			<dateout>17-12-2020</dateout>
 		</inOut>
 	</Customer>
 </CustomerList>

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -22,6 +23,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -59,7 +61,7 @@ public class mainFrame extends JFrame {
 	private JTextField txtPhone;
 	private JTextField txtDayOut;
 	private JTextField txtIDRoom;
-	private JTextField txtFullName1;
+	private JTextField txtFullName2;
 	private JTextField txtIDPersonal2;
 	private JTextField txtPhone2;
 	private JTable tableRoom;
@@ -70,6 +72,8 @@ public class mainFrame extends JFrame {
     OptionSearch search= new OptionSearch();
     OptionAction action= new OptionAction();
 	ArrayList<Room> roomSuggest = new ArrayList<>();
+	HashMap<String, Customer> hashMapCustHashMap = new HashMap<>();
+	HashMap<String, Room> hashMapRoomHashMap = new HashMap<>();
 	/**
 	 * Launch the application.
 	 */
@@ -98,6 +102,12 @@ public class mainFrame extends JFrame {
         listCustomers=input.importCustomer();
         listRooms=action.autoCheckTime(listRooms, listCustomers);
  	   	input.exportRoom(listRooms);
+		for (Customer customer : listCustomers) {
+			hashMapCustHashMap.put(customer.getiD(), customer);
+		}
+		for (Room room : listRooms) {
+			hashMapRoomHashMap.put(room.getiDsRoom(), room);
+		}
         Timer timer = new Timer();
         int begin = 0;
         int timeInterval = 60000;
@@ -254,6 +264,7 @@ public class mainFrame extends JFrame {
 		JButton btnSearchRoom = new JButton("Tìm kiếm");
 		btnSearchRoom.setBounds(914, 28, 198, 70);
 		panelSearchRoom.add(btnSearchRoom);
+		JPanel panel3 = (JPanel) getContentPane();
 		btnSearchRoom.addActionListener(new ActionListener() {
 			
 			@Override
@@ -333,7 +344,9 @@ public class mainFrame extends JFrame {
 					});
 					
 				}
-				if (listEndSearchRooms.get(0).getiDsRoom().equals("NoneItem")) {}
+				if (listEndSearchRooms.get(0).getiDsRoom().equals("NoneItem")) {
+					JOptionPane.showMessageDialog(panel3,"Không tìm thấy!" , ":(", JOptionPane.INFORMATION_MESSAGE);
+				}
 				else {
 				ShowOnTableRoom(listEndSearchRooms);}
 				listEndSearchRooms=null;
@@ -477,6 +490,7 @@ public class mainFrame extends JFrame {
 		JButton btnSearchCustomer = new JButton("Tìm Kiếm");
 		btnSearchCustomer.setBounds(1107, 31, 183, 68);
 		SearchRoom.add(btnSearchCustomer);
+		JPanel panel2 = (JPanel) getContentPane();
 		btnSearchCustomer.addActionListener(new ActionListener() {
 				
 				@Override
@@ -493,8 +507,11 @@ public class mainFrame extends JFrame {
 																					convertTime(cbbTimeIn.getItemAt(cbbTimeIn.getSelectedIndex())), 
 																					convertTime(cbbTimeOut.getItemAt(cbbTimeOut.getSelectedIndex())));
 					resetTableCus();
-					System.out.println(txtID.getText());
-					if (listInforSearchArrayList.get(0).getRollNo().equals("NoneItem")) {}
+					//System.out.println(txtID.getText());
+					if (listInforSearchArrayList.get(0).getRollNo().equals("NoneItem")) {
+						JOptionPane.showMessageDialog(panel2,"Không tìm thấy!" , ":(", JOptionPane.INFORMATION_MESSAGE);
+					}
+					
 						else {
 							ShowOnTableCus(listCustomers, listRooms);
 						}
@@ -554,8 +571,8 @@ public class mainFrame extends JFrame {
 		lblPhone1.setBounds(120, 160, 80, 30);
 		lblPhone1.setText("SĐT:");
 		
-		txtFullName1 = new JTextField();
-		txtFullName1.setBounds(218, 40, 260, 30);
+		txtFullName2 = new JTextField();
+		txtFullName2.setBounds(218, 40, 260, 30);
 		
 		txtIDPersonal2 = new JTextField();
 		txtIDPersonal2.setBounds(218, 100, 260, 30);
@@ -588,7 +605,7 @@ public class mainFrame extends JFrame {
 		jLabel15.setText("Tới:");
 		
 		JComboBox<String> cbbTimeOut2 = new JComboBox<String>();
-		cbbTimeOut2.setModel(new DefaultComboBoxModel(new String[] {"", "0:00 AM", "1:00 AM", "2:00 AM", "3:00 AM", "4:00 AM", "5:00 AM", "6:00 AM", "7:00 AM", "8:00 AM", "9:00 AM", "10:00 AM", "11:00 AM", "12:00 AM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM", "6:00 PM", "7:00 PM", "8:00 PM", "9:00 PM", "10:00 PM", "11:00 PM"}));
+		cbbTimeOut2.setModel(new DefaultComboBoxModel<String>(new String[] {"", "0:00 AM", "1:00 AM", "2:00 AM", "3:00 AM", "4:00 AM", "5:00 AM", "6:00 AM", "7:00 AM", "8:00 AM", "9:00 AM", "10:00 AM", "11:00 AM", "12:00 AM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM", "6:00 PM", "7:00 PM", "8:00 PM", "9:00 PM", "10:00 PM", "11:00 PM"}));
 		cbbTimeOut2.setBounds(1000, 160, 130, 30);
 		
 		JLabel jLabel10 = new JLabel();
@@ -596,7 +613,7 @@ public class mainFrame extends JFrame {
 		jLabel10.setText("Từ: ");
 		
 		JComboBox<String> cbbTimeIn2 = new JComboBox<String>();
-		cbbTimeIn2.setModel(new DefaultComboBoxModel(new String[] {"", "0:00 AM", "1:00 AM", "2:00 AM", "3:00 AM", "4:00 AM", "5:00 AM", "6:00 AM", "7:00 AM", "8:00 AM", "9:00 AM", "10:00 AM", "11:00 AM", "12:00 AM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM", "6:00 PM", "7:00 PM", "8:00 PM", "9:00 PM", "10:00 PM", "11:00 PM"}));
+		cbbTimeIn2.setModel(new DefaultComboBoxModel<String>(new String[] {"", "0:00 AM", "1:00 AM", "2:00 AM", "3:00 AM", "4:00 AM", "5:00 AM", "6:00 AM", "7:00 AM", "8:00 AM", "9:00 AM", "10:00 AM", "11:00 AM", "12:00 AM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM", "6:00 PM", "7:00 PM", "8:00 PM", "9:00 PM", "10:00 PM", "11:00 PM"}));
 		cbbTimeIn2.setBounds(1000, 40, 130, 30);
 		
 		JComboBox<String> cbbTypeRent2 = new JComboBox<String>();
@@ -619,7 +636,7 @@ public class mainFrame extends JFrame {
 		jPRegister.add(lblFullName1);
 		jPRegister.add(lblIDPersonal1);
 		jPRegister.add(lblPhone1);
-		jPRegister.add(txtFullName1);
+		jPRegister.add(txtFullName2);
 		jPRegister.add(txtIDPersonal2);
 		jPRegister.add(jLabel11);
 		jPRegister.add(jLabel12);
@@ -660,11 +677,6 @@ public class mainFrame extends JFrame {
 		lblDetail.setBounds(10, 39, 310, 59);
 		pPriceSuggest.add(lblDetail);
 		
-		JLabel lblTotalPay = new JLabel("");
-		lblTotalPay.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblTotalPay.setBounds(10, 172, 310, 38);
-		pPriceSuggest.add(lblTotalPay);
-		
 		JLabel lblDetail2 = new JLabel("");
 		lblDetail2.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblDetail2.setBounds(10, 109, 310, 52);
@@ -676,7 +688,7 @@ public class mainFrame extends JFrame {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
 				roomSuggest=search.SearchRoom(roomSuggest,"","Trống" ,"",cbbTypeRoom2.getItemAt(cbbTypeRoom2.getSelectedIndex()), "");
-				cbbBeds2.setModel(new DefaultComboBoxModel<>(setOptionBeds(roomSuggest)));
+//				cbbBeds2.setModel(new DefaultComboBoxModel<>(setOptionBeds(roomSuggest)));
 				cbbIDRoom2.setModel(new DefaultComboBoxModel<>(setOptionID(roomSuggest)));
 				if (cbbTimeIn2.getSelectedIndex()==0 | cbbTimeOut2.getSelectedIndex()==0) {
 					if(cbbTypeRent2.getItemAt(cbbTypeRent2.getSelectedIndex()).equals(""))
@@ -719,7 +731,7 @@ public class mainFrame extends JFrame {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
 				roomSuggest=search.SearchRoom(roomSuggest, "", "Trống",cbbBeds2.getItemAt(cbbBeds2.getSelectedIndex()), "","");
-				cbbTypeRoom2.setModel(new DefaultComboBoxModel<>(setOptionTypeRoom(roomSuggest)));
+//				cbbTypeRoom2.setModel(new DefaultComboBoxModel<>(setOptionTypeRoom(roomSuggest)));
 				cbbIDRoom2.setModel(new DefaultComboBoxModel<>(setOptionID(roomSuggest)));
 				if (cbbTimeIn2.getSelectedIndex()==0 | cbbTimeOut2.getSelectedIndex()==0) {
 					if(cbbTypeRent2.getItemAt(cbbTypeRent2.getSelectedIndex()).equals(""))
@@ -819,6 +831,7 @@ public class mainFrame extends JFrame {
 					}
 				}else {
 					int value= calTime(cbbTimeIn2.getItemAt(cbbTimeIn2.getSelectedIndex()), cbbTimeOut2.getItemAt(cbbTimeOut2.getSelectedIndex()));
+					System.out.println(cbbTimeIn2.getItemAt(cbbTimeIn2.getSelectedIndex()));
 					if(cbbTypeRent2.getItemAt(cbbTypeRent2.getSelectedIndex()).equals(""))
 					{
 					String min1h = search.searchMinPrice(roomSuggest, "Theo giờ");
@@ -838,7 +851,95 @@ public class mainFrame extends JFrame {
 			}
 				
 		});
-		
+		JPanel panel1 = (JPanel) getContentPane();
+		btnRegister.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String check=checkInputReg(txtFullName2.getText(),txtIDPersonal2.getText(), txtPhone2.getText(),cbbIDRoom2.getItemAt(cbbIDRoom2.getSelectedIndex()));
+
+					if (check.equals("")) {
+						if (cbbTimeIn2.getSelectedIndex()==0 | cbbTimeOut2.getSelectedIndex()==0) {
+							int n= JOptionPane.showConfirmDialog(panel1, "Bạn không nhập thời gian thuê ( mặc định qua đêm)?","Xác nhận",JOptionPane.YES_NO_OPTION);
+							if(n==JOptionPane.YES_OPTION) {
+								cbbTypeRent2.setSelectedIndex(2);
+								int n1= JOptionPane.showConfirmDialog(panel1, "Bạn chắc chắn về thông tin đã nhập không?","Xác nhận",JOptionPane.YES_NO_OPTION);
+								if(n1==JOptionPane.YES_OPTION) {
+								Customer temp= new Customer();
+								String rollNo= createRollNo(hashMapCustHashMap);
+								temp.setFullName(txtFullName2.getText());
+								temp.setiD(txtIDPersonal2.getText());
+								temp.setPhoneNumber(txtPhone2.getText());
+								temp.setiDRoom(cbbIDRoom2.getItemAt(cbbIDRoom2.getSelectedIndex()));
+								temp.setTypeRent(cbbTypeRent2.getItemAt(2));
+								temp.setInOut(action.getInforTimeReg("","" ));
+								temp.setRollNo(rollNo);
+								hashMapCustHashMap.put(rollNo, temp);
+								listCustomers.add(temp);
+								String iDRoomString= cbbIDRoom2.getItemAt(cbbIDRoom2.getSelectedIndex());
+								listRooms=action.setStautus(listRooms, iDRoomString);
+								input.exportCustomer(listCustomers);
+								ShowOnTableCus(listCustomers, listRooms);
+								ShowOnTableRoom(listRooms);
+								JOptionPane.showMessageDialog(panel1,  "ID của bạn: "+rollNo+"\nID phòng bạn là: "+iDRoomString+
+																		"\nLoại phòng: "+cbbTypeRoom2.getItemAt(cbbTypeRoom2.getSelectedIndex())+
+																		"\nSố giường: "+cbbBeds2.getItemAt(cbbBeds2.getSelectedIndex())+
+																		"\nHình thức thuê: "+temp.getTypeRent()
+																		, "About", 
+			                              JOptionPane.INFORMATION_MESSAGE);
+							}	
+						}
+						}else {
+						int n1= JOptionPane.showConfirmDialog(panel1, "Bạn chắc chắn về thông tin đã nhập không?","Xác nhận",JOptionPane.YES_NO_OPTION);
+						if(n1==JOptionPane.YES_OPTION) {
+						Customer temp= new Customer();
+						String rollNo= createRollNo(hashMapCustHashMap);
+						temp.setFullName(txtFullName2.getText());
+						temp.setiD(txtIDPersonal2.getText());
+						temp.setPhoneNumber(txtPhone2.getText());
+						temp.setiDRoom(cbbIDRoom2.getItemAt(cbbIDRoom2.getSelectedIndex()));
+						temp.setTypeRent(cbbTypeRent2.getItemAt(cbbTypeRent2.getSelectedIndex()));
+						temp.setInOut(action.getInforTimeReg("","" ));
+						temp.setRollNo(rollNo);
+						hashMapCustHashMap.put(rollNo, temp);
+						listCustomers.add(temp);
+						input.exportCustomer(listCustomers);
+						String iDRoomString= cbbIDRoom2.getItemAt(cbbIDRoom2.getSelectedIndex());
+						listRooms=action.setStautus(listRooms, iDRoomString);
+						input.exportCustomer(listCustomers);
+						ShowOnTableCus(listCustomers, listRooms);
+						ShowOnTableRoom(listRooms);
+						JOptionPane.showMessageDialog(panel1,  "ID của bạn: "+rollNo+"\nID phòng bạn là: "+iDRoomString+
+																"\nLoại phòng: "+cbbTypeRoom2.getItemAt(cbbTypeRoom2.getSelectedIndex())+
+																"\nSố giường: "+cbbBeds2.getItemAt(cbbBeds2.getSelectedIndex())+
+																"\nHình thức thuê: "+temp.getTypeRent()
+																, "About", 
+	                              JOptionPane.INFORMATION_MESSAGE);
+					}
+				}
+			}else {
+				JOptionPane.showMessageDialog(panel1,check, "About", 
+                        JOptionPane.INFORMATION_MESSAGE);
+			}
+		}
+		});
+		btnCancel.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int n1= JOptionPane.showConfirmDialog(panel1, "Bạn chắc chắn xóa hết thông tin đã nhập không?","Xác nhận",JOptionPane.YES_NO_OPTION);
+				if(n1==JOptionPane.YES_OPTION) {
+				txtFullName2.setText("");
+				txtIDPersonal2.setText("");
+				cbbBeds2.setSelectedIndex(0);
+				cbbIDRoom2.setSelectedIndex(0);
+				cbbTimeIn2.setSelectedIndex(0);
+				cbbTimeOut2.setSelectedIndex(0);
+				cbbTypeRent2.setSelectedIndex(0);
+				cbbTypeRoom2.setSelectedIndex(0);
+				}
+			}
+		});
 		
 	}
 	 public void resetTableCus() {
@@ -939,11 +1040,46 @@ public class mainFrame extends JFrame {
 	}
      public int calTime(String startTime, String endTime) {
     	 int Time=0;
-		if (Integer.valueOf(convertTime(endTime))<Integer.valueOf(convertTime(startTime))) {
-			Time=24-Integer.valueOf(convertTime(startTime))+ Integer.valueOf(convertTime(endTime));
+    	 String[] start=convertTime(startTime).split(":"), end= convertTime(endTime).split(":");
+    	 
+		if (Integer.valueOf(end[0])<Integer.valueOf(start[0])) {
+			Time=24-Integer.valueOf(start[0])+ Integer.valueOf(end[0]);
 		}else {
-			Time=Integer.valueOf(convertTime(endTime))- Integer.valueOf(convertTime(startTime));
+			Time=Integer.valueOf(end[0])- Integer.valueOf(start[0]);
 		}
 		return Time;
 	}
+     public String checkInputReg(String txtFullName, String txtIDPersonal, String txtPhone,  String IDRoom) {
+		String resutl="";
+		if (txtFullName.length()<2) {
+			resutl="Họ và tên";
+		}
+		if (txtIDPersonal.length()<8 ) {
+			resutl=resutl+", CMND/CCCD";
+		}
+		if (txtPhone.length()<10 && !isNumeric(txtPhone)) {
+			resutl=resutl+", Số điện thoại(đủ 10 số)";
+		}
+		if (IDRoom.equals("")) {
+			resutl= resutl+", ID phòng";
+		}
+		if (resutl.equals("")) return resutl;
+		else return resutl="Vui lòng nhập: "+ resutl+".";
+	}
+     public String createRollNo(HashMap<String, Customer> dataHashMap) {
+    	 String endString="";
+		for (int i = 0; i < 1000; i++) {
+			if(dataHashMap.containsKey("KH"+String.valueOf(i))) {}
+			else return endString="KH"+String.valueOf(i);
+		}
+		return endString;
+     }
+     public boolean isNumeric(String str)
+     {
+         for (char c : str.toCharArray())
+         {
+             if (!Character.isDigit(c)) return false;
+         }
+         return true;
+     }
 }

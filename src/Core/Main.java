@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import GUI.mainFrame;
+
 
 public class Main {
 
@@ -54,9 +56,13 @@ public class Main {
 //	        date1 = simpleDateFormat.parse(endDate);
 //	        long getdiff= (date2.getTime()-date1.getTime())/(1000*60);
 //	        System.out.println(String.valueOf(getdiff));
-			OptionSearch s= new OptionSearch();
-			String kString=s.searchMinPrice(b, "Theo giờ");
-			System.out.println(kString);
+//			OptionSearch s= new OptionSearch();
+//			String kString=s.searchMinPrice(b, "Theo giờ");
+//			System.out.println(kString);
+			mainFrame n= new mainFrame();
+			if (!n.isNumeric("1644a")) {
+				System.out.println("1");
+			}
 		}
 //	     public static String convertTime(String dataTime) {
 //	 		if(dataTime.equals("")) return "0";

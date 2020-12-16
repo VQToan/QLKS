@@ -46,7 +46,69 @@ public class OptionAction {
 		return dataRooms;
 	}
 	return dataRooms;
-	
-
+	}
+	public InfoTime getInforTimeReg(String startTime,  String endTime) {
+		InfoTime dateTimeInfor=new InfoTime();
+		DateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+		Date currentDate = new Date();
+	    Calendar cal = Calendar.getInstance();
+	    cal.setTime(new Date());
+	    cal.add(Calendar.HOUR, 24);
+	    Date date1 = null,date2=null;
+	    String[] current = simpleDateFormat.format(currentDate).split(" ");
+	    String[] tomorrow= simpleDateFormat.format(cal.getTime()).split(" ");
+	    cal.add(Calendar.DAY_OF_MONTH, 1);
+	    String[] nextTomorrow= simpleDateFormat.format(cal.getTime()).split(" ");
+	    if (startTime.equals("") && endTime.equals("")) {
+			dateTimeInfor.setdateIn(current[0]);
+			dateTimeInfor.setTimeIn(current[1]);
+			dateTimeInfor.setdateOut(tomorrow[0]);
+			dateTimeInfor.setTimeOut(current[1]);
+			}
+		else {
+				try {
+					date1=simpleDateFormat.parse(current[0]+" "+ startTime);
+					date2=simpleDateFormat.parse(current[0]+" "+ endTime);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				if ((date1.getTime()-currentDate.getTime())<0) {
+					if ((date2.getTime()-date1.getTime())<0) {
+						dateTimeInfor.setdateIn(tomorrow[0]);
+						dateTimeInfor.setTimeIn(startTime);
+						dateTimeInfor.setdateOut(nextTomorrow[0]);
+						dateTimeInfor.setTimeOut(endTime);
+					}else {
+					dateTimeInfor.setdateIn(tomorrow[0]);
+					dateTimeInfor.setdateOut(tomorrow[0]);
+					dateTimeInfor.setTimeIn(startTime);
+					dateTimeInfor.setTimeOut(endTime);
+					}
+				}else if ((date2.getTime()-currentDate.getTime())<0) {
+					dateTimeInfor.setdateIn(current[0]);
+					dateTimeInfor.setTimeIn(startTime);
+					dateTimeInfor.setdateOut(tomorrow[0]);
+					dateTimeInfor.setTimeOut(endTime);
+				}
+				else{
+					dateTimeInfor.setdateIn(current[0]);
+					dateTimeInfor.setdateOut(current[0]);
+					dateTimeInfor.setTimeIn(startTime);
+					dateTimeInfor.setdateOut(endTime);
+			}
+		}
+		return dateTimeInfor;
+	}
+	public ArrayList<Room> setStautus(ArrayList<Room> dataRooms, String key) {
+		for (int i = 0; i < dataRooms.size(); i++) {
+			if(key.equals(dataRooms.get(i).getiDsRoom())) {
+				Room tempRoom= dataRooms.get(i);
+				tempRoom.setStatus("Đã đặt");
+				dataRooms.set(i,tempRoom);
+				tempRoom=null;
+				}
+		}
+		return dataRooms;
 	}
 }
