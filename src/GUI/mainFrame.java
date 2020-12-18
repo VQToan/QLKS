@@ -245,7 +245,7 @@ public class mainFrame extends JFrame {
         cbbBeds.setModel(new DefaultComboBoxModel<String>(setOptionBeds(listRooms)));
 		
 		JButton btnSearchRoom = new JButton("Tìm kiếm");
-		btnSearchRoom.setBounds(914, 28, 198, 70);
+		btnSearchRoom.setBounds(914, 28, 209, 70);
 		panelSearchRoom.add(btnSearchRoom);
 		JPanel panel3 = (JPanel) getContentPane();
 		btnSearchRoom.addActionListener(new ActionListener() {
@@ -338,7 +338,7 @@ public class mainFrame extends JFrame {
 		
 		
 		JButton btnResetRoomSearchForm = new JButton("Nhập lại");
-		btnResetRoomSearchForm.setBounds(914, 122, 89, 30);
+		btnResetRoomSearchForm.setBounds(914, 122, 100, 30);
 		panelSearchRoom.add(btnResetRoomSearchForm);
         btnResetRoomSearchForm.addActionListener(new ActionListener() {
 			
@@ -354,7 +354,7 @@ public class mainFrame extends JFrame {
 		});
 		
 		JButton btnShowAllRoom = new JButton("Xem tất cả");
-		btnShowAllRoom.setBounds(1023, 122, 89, 30);
+		btnShowAllRoom.setBounds(1023, 122, 100, 30);
 		panelSearchRoom.add(btnShowAllRoom);
 		 btnShowAllRoom.addActionListener(new ActionListener() {
 				
@@ -471,7 +471,7 @@ public class mainFrame extends JFrame {
 
 		
 		JButton btnSearchCustomer = new JButton("Tìm Kiếm");
-		btnSearchCustomer.setBounds(1107, 31, 183, 68);
+		btnSearchCustomer.setBounds(1107, 31, 209, 68);
 		SearchRoom.add(btnSearchCustomer);
 		JPanel panel2 = (JPanel) getContentPane();
 		btnSearchCustomer.addActionListener(new ActionListener() {
@@ -504,7 +504,7 @@ public class mainFrame extends JFrame {
 			});
 		
 		JButton btnResetCustSearchForm = new JButton("Nhập lại");
-		btnResetCustSearchForm.setBounds(1107, 120, 90, 30);
+		btnResetCustSearchForm.setBounds(1107, 120, 100, 30);
 		SearchRoom.add(btnResetCustSearchForm);
         btnResetCustSearchForm.addActionListener(new ActionListener() {
 			
@@ -525,7 +525,7 @@ public class mainFrame extends JFrame {
 		
 		
 		JButton btnShowAllCust = new JButton("Xem tất cả");
-		btnShowAllCust.setBounds(1200, 120, 90, 30);
+		btnShowAllCust.setBounds(1216, 120, 100, 30);
 		SearchRoom.add(btnShowAllCust);
         btnShowAllCust.addActionListener(new ActionListener() {
 			

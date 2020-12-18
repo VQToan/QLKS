@@ -66,6 +66,7 @@ public class loginFrame extends JFrame {
 		panel.add(lblUser);
 		
 		fieldUser = new JTextField();
+		fieldUser.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		fieldUser.setBounds(180, 50, 200, 40);
 		panel.add(fieldUser);
 		fieldUser.setColumns(10);
@@ -76,6 +77,7 @@ public class loginFrame extends JFrame {
 		panel.add(lblPass);
 		
 		fieldPass = new JPasswordField();
+		fieldPass.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		fieldPass.setBounds(180, 120, 200, 40);
 		panel.add(fieldPass);
 		
