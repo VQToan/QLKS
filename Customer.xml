@@ -2,7 +2,7 @@
 <CustomerList>
 <Customer>
 		<rollNo>01</rollNo>
-		<fullName>Võ Quốc Toàn     </fullName>
+		<fullName>Võ Quốc Toàn       </fullName>
 		<iD>a26145716489</iD>
 		<phoneNumber>a983243953</phoneNumber>
 		<iDRoom>001</iDRoom>
@@ -15,7 +15,7 @@
 		</inOut>
 	</Customer><Customer>
 		<rollNo>null</rollNo>
-		<fullName>Võ Quốc Toàn   </fullName>
+		<fullName>Võ Quốc Toàn     </fullName>
 		<iD>46541531354</iD>
 		<phoneNumber>56565151125</phoneNumber>
 		<iDRoom>001</iDRoom>
@@ -28,7 +28,7 @@
 		</inOut>
 	</Customer><Customer>
 		<rollNo>KH999</rollNo>
-		<fullName>Võ Quốc Toàn  </fullName>
+		<fullName>Võ Quốc Toàn    </fullName>
 		<iD>545415125145</iD>
 		<phoneNumber>56465456465</phoneNumber>
 		<iDRoom>001</iDRoom>
@@ -41,7 +41,7 @@
 		</inOut>
 	</Customer><Customer>
 		<rollNo>KH0</rollNo>
-		<fullName>Nguyễn Mạnh Lờ </fullName>
+		<fullName>Nguyễn Mạnh Lờ   </fullName>
 		<iD>165465454654</iD>
 		<phoneNumber>1545646546</phoneNumber>
 		<iDRoom>001</iDRoom>
@@ -51,6 +51,32 @@
 			<dateIn>16-12-2020</dateIn>
 			<timeOut>15:02</timeOut>
 			<dateout>17-12-2020</dateout>
+		</inOut>
+	</Customer><Customer>
+		<rollNo>KH0</rollNo>
+		<fullName>Phan Hải Đăng  </fullName>
+		<iD>654156415456</iD>
+		<phoneNumber>1556416556</phoneNumber>
+		<iDRoom>004</iDRoom>
+		<typeRent>Qua đêm</typeRent>
+		<inOut>
+			<timeIn>22:50</timeIn>
+			<dateIn>22-12-2020</dateIn>
+			<timeOut>22:50</timeOut>
+			<dateout>23-12-2020</dateout>
+		</inOut>
+	</Customer><Customer>
+		<rollNo>KH0</rollNo>
+		<fullName>àafwgtf </fullName>
+		<iD>2023132123</iD>
+		<phoneNumber>452785242</phoneNumber>
+		<iDRoom>002</iDRoom>
+		<typeRent>Theo giờ</typeRent>
+		<inOut>
+			<timeIn>23:02</timeIn>
+			<dateIn>22-12-2020</dateIn>
+			<timeOut>23:02</timeOut>
+			<dateout>23-12-2020</dateout>
 		</inOut>
 	</Customer>
 </CustomerList>

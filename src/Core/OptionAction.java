@@ -13,9 +13,9 @@ public class OptionAction {
 	public ArrayList<Room> autoCheckTime(ArrayList<Room> dataRooms, ArrayList<Customer> dataCustomers) {
 	DateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 	Date currentDate = new Date();
-    Calendar cal = Calendar.getInstance();
-    cal.setTime(new Date());
-    cal.add(Calendar.HOUR, 24);
+//    Calendar cal = Calendar.getInstance();
+//    cal.setTime(new Date());
+//    cal.add(Calendar.HOUR, 24);
     Date date1 = null,date2 = null;
     String endDate = simpleDateFormat.format(currentDate);
     try {
@@ -81,7 +81,7 @@ public class OptionAction {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				if ((date1.getTime()-currentDate.getTime())<0) {
+				if ((date1.getTime()-currentDate.getTime())<=0) {
 					if ((date2.getTime()-date1.getTime())<0) {
 						dateTimeInfor.setdateIn(tomorrow[0]);
 						dateTimeInfor.setTimeIn(startTime);

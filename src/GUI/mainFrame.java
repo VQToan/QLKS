@@ -670,7 +670,7 @@ public class mainFrame extends JFrame {
 			
 			@Override
 			public void itemStateChanged(ItemEvent e) {
-				roomSuggest=search.SearchRoom(roomSuggest,"","Trống" ,"",cbbTypeRoom2.getItemAt(cbbTypeRoom2.getSelectedIndex()), "");
+				roomSuggest=search.SearchRoom(listRooms,"","Trống" ,cbbBeds2.getSelectedItem().toString(),cbbTypeRoom2.getSelectedItem().toString(), "");
 //				cbbBeds2.setModel(new DefaultComboBoxModel<>(setOptionBeds(roomSuggest)));
 				cbbIDRoom2.setModel(new DefaultComboBoxModel<>(setOptionID(roomSuggest)));
 				if (cbbTimeIn2.getSelectedIndex()==0 | cbbTimeOut2.getSelectedIndex()==0) {
@@ -713,7 +713,7 @@ public class mainFrame extends JFrame {
 			
 			@Override
 			public void itemStateChanged(ItemEvent e) {
-				roomSuggest=search.SearchRoom(roomSuggest, "", "Trống",cbbBeds2.getItemAt(cbbBeds2.getSelectedIndex()), "","");
+				roomSuggest=search.SearchRoom(listRooms,"","Trống" ,cbbBeds2.getSelectedItem().toString(),cbbTypeRoom2.getSelectedItem().toString(), "");
 //				cbbTypeRoom2.setModel(new DefaultComboBoxModel<>(setOptionTypeRoom(roomSuggest)));
 				cbbIDRoom2.setModel(new DefaultComboBoxModel<>(setOptionID(roomSuggest)));
 				if (cbbTimeIn2.getSelectedIndex()==0 | cbbTimeOut2.getSelectedIndex()==0) {
@@ -825,9 +825,12 @@ public class mainFrame extends JFrame {
 					if (cbbTypeRent2.getItemAt(cbbTypeRent2.getSelectedIndex()).equals("Theo giờ")) {
 						String min = search.searchMinPrice(roomSuggest, "Theo giờ");
 						lblDetail.setText("Giá theo giờ thấp nhất: "+String.valueOf(Integer.valueOf(min)*value));
+						lblDetail2.setText("");
+
 					}
 					if (cbbTypeRent2.getItemAt(cbbTypeRent2.getSelectedIndex()).equals("Qua đêm")) {
 						String min = search.searchMinPrice(roomSuggest, "Qua đêm");
+						lblDetail2.setText("");
 						lblDetail.setText("Giá qua đêm thấp nhất: "+String.valueOf(Integer.valueOf(min)*value));
 					}
 				}
@@ -1054,7 +1057,7 @@ public class mainFrame extends JFrame {
      public String createRollNo(HashMap<String, Customer> dataHashMap) {
     	 String endString="";
 		for (int i = 0; i < 1000; i++) {
-			if(dataHashMap.containsKey("KH"+String.valueOf(i))) {}
+			if(dataHashMap.containsKey("KH"+String.valueOf(i))) {System.out.println("true");}
 			else return endString="KH"+String.valueOf(i);
 		}
 		return endString;

@@ -9,7 +9,7 @@
 		<priceOverNight>544563</priceOverNight>
 	</Room>	<Room>
 		<iDsRoom>002</iDsRoom>
-		<status>Trống</status>
+		<status>Đã đặt</status>
 		<beds>1</beds>
 		<typeRoom>Bình dân</typeRoom>
 		<price1Hour>455156</price1Hour>
@@ -23,7 +23,7 @@
 		<priceOverNight>124245</priceOverNight>
 	</Room>	<Room>
 		<iDsRoom>004</iDsRoom>
-		<status>Trống</status>
+		<status>Đã đặt</status>
 		<beds>1</beds>
 		<typeRoom>Bình dân</typeRoom>
 		<price1Hour>200000</price1Hour>
