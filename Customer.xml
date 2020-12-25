@@ -1,82 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomerList>
 <Customer>
-		<rollNo>01</rollNo>
-		<fullName>Võ Quốc Toàn       </fullName>
-		<iD>a26145716489</iD>
-		<phoneNumber>a983243953</phoneNumber>
-		<iDRoom>001</iDRoom>
-		<typeRent>1Hour</typeRent>
-		<inOut>
-			<timeIn>10:25</timeIn>
-			<dateIn>22-06-2020</dateIn>
-			<timeOut>9:00</timeOut>
-			<dateout>23-06-2020</dateout>
-		</inOut>
-	</Customer><Customer>
-		<rollNo>null</rollNo>
-		<fullName>Võ Quốc Toàn     </fullName>
-		<iD>46541531354</iD>
-		<phoneNumber>56565151125</phoneNumber>
-		<iDRoom>001</iDRoom>
+		<rollNo>KH1</rollNo>
+		<fullName>ddfdgfghghjgh      </fullName>
+		<iD>546658767978</iD>
+		<phoneNumber>576978090-9-</phoneNumber>
+		<iDRoom>023</iDRoom>
 		<typeRent>Qua đêm</typeRent>
+		<amountPaid>20000 VNĐ</amountPaid>
 		<inOut>
-			<timeIn>13:59</timeIn>
-			<dateIn>16-12-2020</dateIn>
-			<timeOut>13:59</timeOut>
-			<dateout>17-12-2020</dateout>
+			<timeIn>21:54</timeIn>
+			<dateIn>24-12-2020</dateIn>
+			<timeOut>07:54</timeOut>
+			<dateout>26-12-2020</dateout>
 		</inOut>
 	</Customer><Customer>
-		<rollNo>KH999</rollNo>
-		<fullName>Võ Quốc Toàn    </fullName>
-		<iD>545415125145</iD>
-		<phoneNumber>56465456465</phoneNumber>
-		<iDRoom>001</iDRoom>
+		<rollNo>KH2</rollNo>
+		<fullName>asfdgdhgjgjhk     </fullName>
+		<iD>46547586799</iD>
+		<phoneNumber>57667898090</phoneNumber>
+		<iDRoom>018</iDRoom>
 		<typeRent>Qua đêm</typeRent>
+		<amountPaid>20000 VNĐ</amountPaid>
 		<inOut>
-			<timeIn>14:09</timeIn>
-			<dateIn>16-12-2020</dateIn>
-			<timeOut>14:09</timeOut>
-			<dateout>17-12-2020</dateout>
+			<timeIn>22:03</timeIn>
+			<dateIn>24-12-2020</dateIn>
+			<timeOut>22:03</timeOut>
+			<dateout>25-12-2020</dateout>
 		</inOut>
 	</Customer><Customer>
-		<rollNo>KH0</rollNo>
-		<fullName>Nguyễn Mạnh Lờ   </fullName>
-		<iD>165465454654</iD>
-		<phoneNumber>1545646546</phoneNumber>
-		<iDRoom>001</iDRoom>
+		<rollNo>KH3</rollNo>
+		<fullName>safdsgdfhgfj    </fullName>
+		<iD>4656687978</iD>
+		<phoneNumber>4657778887</phoneNumber>
+		<iDRoom>022</iDRoom>
 		<typeRent>Qua đêm</typeRent>
+		<amountPaid>50000 VNĐ</amountPaid>
 		<inOut>
-			<timeIn>15:02</timeIn>
-			<dateIn>16-12-2020</dateIn>
-			<timeOut>15:02</timeOut>
-			<dateout>17-12-2020</dateout>
+			<timeIn>22:07</timeIn>
+			<dateIn>24-12-2020</dateIn>
+			<timeOut>03:07</timeOut>
+			<dateout>25-12-2020</dateout>
 		</inOut>
 	</Customer><Customer>
-		<rollNo>KH0</rollNo>
+		<rollNo>KH4</rollNo>
+		<fullName>asfgdfhfgjh   </fullName>
+		<iD>467879808</iD>
+		<phoneNumber>57878089-090-</phoneNumber>
+		<iDRoom>021</iDRoom>
+		<typeRent>Qua đêm</typeRent>
+		<amountPaid>16000 VNĐ</amountPaid>
+		<inOut>
+			<timeIn>22:22</timeIn>
+			<dateIn>24-12-2020</dateIn>
+			<timeOut>00:22</timeOut>
+			<dateout>25-12-2020</dateout>
+		</inOut>
+	</Customer><Customer>
+		<rollNo>KH5</rollNo>
 		<fullName>Phan Hải Đăng  </fullName>
-		<iD>654156415456</iD>
-		<phoneNumber>1556416556</phoneNumber>
-		<iDRoom>004</iDRoom>
+		<iD>322454768767</iD>
+		<phoneNumber>54365876745</phoneNumber>
+		<iDRoom>024</iDRoom>
 		<typeRent>Qua đêm</typeRent>
+		<amountPaid>322000 VNĐ</amountPaid>
 		<inOut>
-			<timeIn>22:50</timeIn>
-			<dateIn>22-12-2020</dateIn>
-			<timeOut>22:50</timeOut>
-			<dateout>23-12-2020</dateout>
+			<timeIn>10:13</timeIn>
+			<dateIn>25-12-2020</dateIn>
+			<timeOut>09:13</timeOut>
+			<dateout>26-12-2020</dateout>
 		</inOut>
 	</Customer><Customer>
-		<rollNo>KH0</rollNo>
-		<fullName>àafwgtf </fullName>
-		<iD>2023132123</iD>
-		<phoneNumber>452785242</phoneNumber>
-		<iDRoom>002</iDRoom>
+		<rollNo>KH6</rollNo>
+		<fullName>afsfdfshfhfjgfhj </fullName>
+		<iD>5346457568678</iD>
+		<phoneNumber>235345756767</phoneNumber>
+		<iDRoom>022</iDRoom>
 		<typeRent>Theo giờ</typeRent>
+		<amountPaid>8400 VNĐ</amountPaid>
 		<inOut>
-			<timeIn>23:02</timeIn>
-			<dateIn>22-12-2020</dateIn>
-			<timeOut>23:02</timeOut>
-			<dateout>23-12-2020</dateout>
+			<timeIn>10:16</timeIn>
+			<dateIn>25-12-2020</dateIn>
+			<timeOut>13:16</timeOut>
+			<dateout>25-12-2020</dateout>
 		</inOut>
 	</Customer>
 </CustomerList>

@@ -17,6 +17,7 @@ public class CustomerHandler extends DefaultHandler{
 			isPhoneNumber=false,
 			isIDRoom = false,
 			isTypeRent=false,
+			isAmountPaid = false,
 			isInOut= false,
 			isTimeIn = false,
 			isTimeOut= false,
@@ -39,6 +40,8 @@ public class CustomerHandler extends DefaultHandler{
 			isIDRoom= true;
 		}else if(qName.equalsIgnoreCase("typeRent")){
 			isTypeRent=true;
+		}else if(qName.equalsIgnoreCase("amountPaid")){
+			isAmountPaid=true;
 		}else if (qName.equalsIgnoreCase("inOut")) {
 			isInOut=true;
 			tempInfoTime = new InfoTime();
@@ -70,6 +73,8 @@ public class CustomerHandler extends DefaultHandler{
 			isIDRoom= false;
 		}else if(qName.equalsIgnoreCase("typeRent")){
 			isTypeRent=false;
+		}else if(qName.equalsIgnoreCase("amountPaid")){
+			isAmountPaid=false;
 		}else if (qName.equalsIgnoreCase("inOut")) {
 				isInOut=false;
 				currentCustomer.setInOut(tempInfoTime);
@@ -100,6 +105,8 @@ public class CustomerHandler extends DefaultHandler{
 			currentCustomer.setiDRoom(value);
 		}else if (isTypeRent) {
 			currentCustomer.setTypeRent(value);
+		}else if(isAmountPaid){
+			currentCustomer.setPayment(value);
 		}else if (isTimeIn) {
 			tempInfoTime.setTimeIn(value);
 		}else if (isDateIn) {

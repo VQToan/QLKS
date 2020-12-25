@@ -2,94 +2,178 @@
 <RoomList>
 	<Room>
 		<iDsRoom>001</iDsRoom>
-		<status>Trống</status>
-		<beds>2</beds>
-		<typeRoom>Bình dân</typeRoom>
-		<price1Hour>7524000</price1Hour>
-		<priceOverNight>544563</priceOverNight>
+		<status>Đã đặt</status>
+		<beds>1</beds>
+		<typeRoom>King</typeRoom>
+		<price1Hour>11000</price1Hour>
+		<priceOverNight>20000</priceOverNight>
 	</Room>	<Room>
 		<iDsRoom>002</iDsRoom>
 		<status>Đã đặt</status>
-		<beds>1</beds>
-		<typeRoom>Bình dân</typeRoom>
-		<price1Hour>455156</price1Hour>
-		<priceOverNight>554316</priceOverNight>
+		<beds>2</beds>
+		<typeRoom>King</typeRoom>
+		<price1Hour>12000</price1Hour>
+		<priceOverNight>30000</priceOverNight>
 	</Room>	<Room>
 		<iDsRoom>003</iDsRoom>
-		<status>Trống</status>
-		<beds>2</beds>
-		<typeRoom>Bình dân</typeRoom>
-		<price1Hour>522000221</price1Hour>
-		<priceOverNight>124245</priceOverNight>
+		<status>Đã đặt</status>
+		<beds>3</beds>
+		<typeRoom>King</typeRoom>
+		<price1Hour>13000</price1Hour>
+		<priceOverNight>40000</priceOverNight>
 	</Room>	<Room>
 		<iDsRoom>004</iDsRoom>
 		<status>Đã đặt</status>
+		<beds>4</beds>
+		<typeRoom>King</typeRoom>
+		<price1Hour>14000</price1Hour>
+		<priceOverNight>50000</priceOverNight>
+	</Room>	<Room>
+		<iDsRoom>001</iDsRoom>
+		<status>Đã đặt</status>
 		<beds>1</beds>
-		<typeRoom>Bình dân</typeRoom>
-		<price1Hour>200000</price1Hour>
-		<priceOverNight>1024000</priceOverNight>
+		<typeRoom>Vip</typeRoom>
+		<price1Hour>8800</price1Hour>
+		<priceOverNight>16000</priceOverNight>
 	</Room>	<Room>
-		<iDsRoom>005</iDsRoom>
-		<status>Trống</status>
-		<beds>1</beds>
-		<typeRoom>Cao cấp</typeRoom>
-		<price1Hour>720000</price1Hour>
-		<priceOverNight>420000</priceOverNight>
+		<iDsRoom>002</iDsRoom>
+		<status>Đã đặt</status>
+		<beds>2</beds>
+		<typeRoom>Vip</typeRoom>
+		<price1Hour>9600</price1Hour>
+		<priceOverNight>24000</priceOverNight>
 	</Room>	<Room>
-		<iDsRoom>006</iDsRoom>
-		<status>Trống</status>
-		<beds>2 đôi</beds>
-		<typeRoom>Cao cấp</typeRoom>
-		<price1Hour>60000</price1Hour>
-		<priceOverNight>80000</priceOverNight>
+		<iDsRoom>003</iDsRoom>
+		<status>Đã đặt</status>
+		<beds>3</beds>
+		<typeRoom>Vip</typeRoom>
+		<price1Hour>10400</price1Hour>
+		<priceOverNight>32000</priceOverNight>
 	</Room>	<Room>
-		<iDsRoom>007</iDsRoom>
-		<status>Trống</status>
-		<beds>đôi</beds>
-		<typeRoom>Cao cấp</typeRoom>
-		<price1Hour>1000000</price1Hour>
-		<priceOverNight>100000</priceOverNight>
-	</Room>	<Room>
-		<iDsRoom>008</iDsRoom>
-		<status>Trống</status>
-		<beds>đôi</beds>
-		<typeRoom>KING</typeRoom>
-		<price1Hour>40000000</price1Hour>
-		<priceOverNight>3000000</priceOverNight>
+		<iDsRoom>004</iDsRoom>
+		<status>Đã đặt</status>
+		<beds>4</beds>
+		<typeRoom>Vip</typeRoom>
+		<price1Hour>11200</price1Hour>
+		<priceOverNight>40000</priceOverNight>
 	</Room>	<Room>
 		<iDsRoom>009</iDsRoom>
-		<status>Trống</status>
-		<beds>2</beds>
-		<typeRoom>Bình dân</typeRoom>
-		<price1Hour>75000</price1Hour>
-		<priceOverNight>100000</priceOverNight>
+		<status>Đã đặt</status>
+		<beds>1</beds>
+		<typeRoom>Cao cấp</typeRoom>
+		<price1Hour>6600</price1Hour>
+		<priceOverNight>12000</priceOverNight>
 	</Room>	<Room>
 		<iDsRoom>010</iDsRoom>
-		<status>Trống</status>
-		<beds>1</beds>
-		<typeRoom>Bình dân</typeRoom>
-		<price1Hour>50000</price1Hour>
-		<priceOverNight>80000</priceOverNight>
-	</Room>	<Room>
-		<iDsRoom>011</iDsRoom>
-		<status>Trống</status>
-		<beds>3</beds>
-		<typeRoom>KING</typeRoom>
-		<price1Hour>1000000</price1Hour>
-		<priceOverNight>5000000</priceOverNight>
-	</Room>	<Room>
-		<iDsRoom>012</iDsRoom>
-		<status>Trống</status>
-		<beds>1</beds>
-		<typeRoom>Bình dân</typeRoom>
-		<price1Hour>40000</price1Hour>
-		<priceOverNight>20000</priceOverNight>
-	</Room>	<Room>
-		<iDsRoom>013</iDsRoom>
-		<status>Trống</status>
+		<status>Đã đặt</status>
 		<beds>2</beds>
 		<typeRoom>Cao cấp</typeRoom>
-		<price1Hour>100000</price1Hour>
-		<priceOverNight>80000</priceOverNight>
+		<price1Hour>7200</price1Hour>
+		<priceOverNight>18000</priceOverNight>
+	</Room>	<Room>
+		<iDsRoom>011</iDsRoom>
+		<status>Đã đặt</status>
+		<beds>3</beds>
+		<typeRoom>Cao cấp</typeRoom>
+		<price1Hour>7800</price1Hour>
+		<priceOverNight>24000</priceOverNight>
+	</Room>	<Room>
+		<iDsRoom>012</iDsRoom>
+		<status>Đã đặt</status>
+		<beds>4</beds>
+		<typeRoom>Cao cấp</typeRoom>
+		<price1Hour>8400</price1Hour>
+		<priceOverNight>30000</priceOverNight>
+	</Room>	<Room>
+		<iDsRoom>013</iDsRoom>
+		<status>Đã đặt</status>
+		<beds>5</beds>
+		<typeRoom>Cao cấp</typeRoom>
+		<price1Hour>9000</price1Hour>
+		<priceOverNight>36000</priceOverNight>
+	</Room>	<Room>
+		<iDsRoom>014</iDsRoom>
+		<status>Đã đặt</status>
+		<beds>1</beds>
+		<typeRoom>Bình dân</typeRoom>
+		<price1Hour>4400</price1Hour>
+		<priceOverNight>8000</priceOverNight>
+	</Room>	<Room>
+		<iDsRoom>015</iDsRoom>
+		<status>Đã đặt</status>
+		<beds>2</beds>
+		<typeRoom>Bình dân</typeRoom>
+		<price1Hour>4800</price1Hour>
+		<priceOverNight>12000</priceOverNight>
+	</Room>	<Room>
+		<iDsRoom>016</iDsRoom>
+		<status>Đã đặt</status>
+		<beds>3</beds>
+		<typeRoom>Bình dân</typeRoom>
+		<price1Hour>5200</price1Hour>
+		<priceOverNight>16000</priceOverNight>
+	</Room>	<Room>
+		<iDsRoom>017</iDsRoom>
+		<status>Đã đặt</status>
+		<beds>4</beds>
+		<typeRoom>Bình dân</typeRoom>
+		<price1Hour>5600</price1Hour>
+		<priceOverNight>20000</priceOverNight>
+	</Room>	<Room>
+		<iDsRoom>018</iDsRoom>
+		<status>Đã đặt</status>
+		<beds>5</beds>
+		<typeRoom>Bình dân</typeRoom>
+		<price1Hour>6000</price1Hour>
+		<priceOverNight>24000</priceOverNight>
+	</Room>	<Room>
+		<iDsRoom>019</iDsRoom>
+		<status>Đã đặt</status>
+		<beds>1</beds>
+		<typeRoom>Thường</typeRoom>
+		<price1Hour>2200</price1Hour>
+		<priceOverNight>4000</priceOverNight>
+	</Room>	<Room>
+		<iDsRoom>020</iDsRoom>
+		<status>Đã đặt</status>
+		<beds>2</beds>
+		<typeRoom>Thường</typeRoom>
+		<price1Hour>2400</price1Hour>
+		<priceOverNight>6000</priceOverNight>
+	</Room>	<Room>
+		<iDsRoom>021</iDsRoom>
+		<status>Trống</status>
+		<beds>3</beds>
+		<typeRoom>Thường</typeRoom>
+		<price1Hour>2600</price1Hour>
+		<priceOverNight>8000</priceOverNight>
+	</Room>	<Room>
+		<iDsRoom>022</iDsRoom>
+		<status>Đã đặt</status>
+		<beds>4</beds>
+		<typeRoom>Thường</typeRoom>
+		<price1Hour>2800</price1Hour>
+		<priceOverNight>10000</priceOverNight>
+	</Room>	<Room>
+		<iDsRoom>023</iDsRoom>
+		<status>Đã đặt</status>
+		<beds>5</beds>
+		<typeRoom>Thường</typeRoom>
+		<price1Hour>3000</price1Hour>
+		<priceOverNight>12000</priceOverNight>
+	</Room>	<Room>
+		<iDsRoom>024</iDsRoom>
+		<status>Đã đặt</status>
+		<beds>6</beds>
+		<typeRoom>Thường</typeRoom>
+		<price1Hour>3200</price1Hour>
+		<priceOverNight>14000</priceOverNight>
+	</Room>	<Room>
+		<iDsRoom>025</iDsRoom>
+		<status>Trống</status>
+		<beds>7</beds>
+		<typeRoom>Thường</typeRoom>
+		<price1Hour>3400</price1Hour>
+		<priceOverNight>16000</priceOverNight>
 	</Room>
 </RoomList>

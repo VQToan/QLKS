@@ -35,6 +35,7 @@ public class OptionSearch {
 //		this.dateOut = dateOut;
 //		this.timeIn = timeIn;
 //		this.timeOut = timeOut;
+	OptionAction action= new OptionAction();
 //	}
 	//================ TIM THEO THONG TIN KHAC HANG======================//
 	public boolean check1(Customer data, String method, String key) {
@@ -49,8 +50,8 @@ public class OptionSearch {
 			if (method.equals("iDRoom") && data.getiDRoom().equals(key)) flag= true;
 			if (method.equals("dateIn") && (data.getInOut().getdateIn().equals(key) | key.equalsIgnoreCase("dd-mm-yyyy"))) flag= true;
 			if (method.equals("dateOut") && (data.getInOut().getdateOut().equals(key) | key.equalsIgnoreCase("dd-mm-yyyy"))) flag = true;
-			if (method.equals("timeIn" )&& data.getInOut().getTimeIn().equals(key)|key.equals("0")) flag= true;
-			if (method.equals("timeOut") && data.getInOut().getTimeOut().equals(key)|key.equals("0")) flag= true;
+			if (method.equals("timeIn" )&& ((action.getHourString(data.getInOut().getTimeIn())).equals(key)|key.equals("0"))) flag= true;
+			if (method.equals("timeOut") && ((action.getHourString(data.getInOut().getTimeOut())).equals(key)|key.equals("0"))) flag= true;
 		}
 		return flag;
 	}
@@ -127,16 +128,18 @@ public class OptionSearch {
 			distance=dataRoom.get(0).getPrice1Hour();
 			for (Room room : dataRoom) {
 				if (Math.abs(numberIn1-room.getPrice1Hour())< distance) {
+					distance= Math.abs(numberIn1-room.getPrice1Hour());
 					nearNumber=room.getPrice1Hour();
 				}
 				
 			}
 		}
 		if (method.equalsIgnoreCase("PriceOverNight")) {
-			nearNumber=dataRoom.get(0).getPrice1Hour();
-			distance=dataRoom.get(0).getPrice1Hour();
+			nearNumber=dataRoom.get(0).getPriceOverNight();
+			distance=dataRoom.get(0).getPriceOverNight();
 				for (Room room : dataRoom) {
 					if (Math.abs(numberIn1-room.getPriceOverNight())< distance) {
+						distance=Math.abs(numberIn1-room.getPriceOverNight());
 						nearNumber=room.getPriceOverNight();
 					}
 				}

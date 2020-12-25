@@ -5,8 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -36,7 +34,7 @@ public class DataFile {
 			try {
 				fos.close();
 			}catch (IOException ex) {
-				// TODO: handle exception
+
 			}
 			}
 		}
@@ -54,21 +52,16 @@ public class DataFile {
 			dataCustomers= handler.getCustomerList();
 			
 		}catch (FileNotFoundException ex) {
-			// TODO: handle exception
 		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SAXException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			try {
 				fis.close();
 			} catch (IOException ex) {
-				// TODO: handle exception
 			}
 		}
 		return dataCustomers;
@@ -95,7 +88,6 @@ public class DataFile {
 			try {
 				fos.close();
 			}catch (IOException ex) {
-				// TODO: handle exception
 			}
 			}
 		}
@@ -113,56 +105,19 @@ public class DataFile {
 			dataRooms= handler1.getRoomlList();
 			
 		}catch (FileNotFoundException ex) {
-			// TODO: handle exception
 		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SAXException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			try {
 				fis.close();
 			} catch (IOException ex) {
-				// TODO: handle exception
 			}
 		}
 		return dataRooms;
-	}
-	public HashMap<String, String> importUserList() {
-		HashMap<String, String> dataUserMap= new HashMap<>();
-		FileInputStream fis = null;
-		try {
-			fis = new FileInputStream("userLogin.xml");
-			SAXParserFactory factory = SAXParserFactory.newInstance();
-			SAXParser parser =factory.newSAXParser();
-			LoginUserHandler handler = new LoginUserHandler();
-			
-			parser.parse(fis, handler);
-			dataUserMap= handler.getUserList();
-			
-		}catch (FileNotFoundException ex) {
-			// TODO: handle exception
-		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SAXException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			try {
-				fis.close();
-			} catch (IOException ex) {
-				// TODO: handle exception
-			}
-		}
-		return dataUserMap;
 	}
 }
 

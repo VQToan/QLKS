@@ -1,8 +1,6 @@
 package GUI;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -12,7 +10,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import java.awt.Font;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
@@ -49,7 +46,7 @@ public class loginFrame extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-		UserLoginList=inOutDataFile.importUserList();
+//		UserLoginList=inOutDataFile.importUserList();
 		
 		JLabel lblTitle = new JLabel("ĐĂNG NHẬP");
 		lblTitle.setFont(new Font("Tahoma", Font.BOLD, 26));
@@ -107,11 +104,11 @@ public class loginFrame extends JFrame {
 							if (fieldUser.getText().equalsIgnoreCase(string)) {
 								if (convertPasstoString(fieldPass.getPassword()).equals(UserLoginList.get(string))) {
 									System.out.println("4");
-									mainFrame frame= new mainFrame();
-									Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-									frame.setSize(screenSize.width, screenSize.height);
-									frame.setVisible(true);
-									setVisible(false);
+//									mainFrame frame= new mainFrame();
+//									Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+//									frame.setSize(screenSize.width, screenSize.height);
+//									frame.setVisible(true);
+//									setVisible(false);
 								} else {
 									System.out.println("5");
 									JOptionPane.showMessageDialog(panel1,"Vui lòng nhập lại mật khẩu!" , "Cảnh báo!", JOptionPane.INFORMATION_MESSAGE);

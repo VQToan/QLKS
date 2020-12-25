@@ -15,6 +15,7 @@ import java.util.regex.Matcher;
 
 
 import GUI.mainFrame;
+import sun.security.jca.GetInstance;
 
 
 public class Main {
@@ -84,6 +85,13 @@ public class Main {
 
 		   public static void main(String[] args) 
 		   throws Exception {
+			   OptionAction action= new OptionAction();
+			   ArrayList<Customer> a = new ArrayList<>();
+			   ArrayList<Room> b,c = new ArrayList<Room>();
+				DataFile outFile= new DataFile();
+				a=outFile.importCustomer();
+			   String time = action.getHourString(a.get(0).getInOut().getTimeIn());
+			   System.out.println(time);
 		      URL url = new URL("https://raw.githubusercontent.com/vqtoan1807/QLKS/main/Room.xml");
 		      System.out.println("URL is " + url.toString());
 		      System.out.println("protocol is " 

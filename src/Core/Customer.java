@@ -2,7 +2,6 @@ package Core;
 
 import java.io.Serializable;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -18,7 +17,9 @@ public class Customer implements Serializable{
 	private String typeRent;
 	private String iDRoom;
 	private InfoTime inOut;
+	private String Payment;
 	DateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+	DataFile input = new DataFile();
 	
 	public String getRollNo() {
 		return rollNo;
@@ -79,6 +80,15 @@ public class Customer implements Serializable{
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
+	public String getPayment() {
+		return Payment;
+	}
+
+	public void setPayment(String payment) {
+		this.Payment = payment;
+	}
+	
 	@Override
 	public String toString() {
 		return "Customer [rollNo=" + rollNo + ", fullName=" + fullName + ", iD=" + iD + ", phoneNumber=" + phoneNumber
@@ -92,6 +102,7 @@ public class Customer implements Serializable{
 				+ "		<phoneNumber>"+phoneNumber+"</phoneNumber>\r\n"
 				+ "		<iDRoom>"+iDRoom+"</iDRoom>\r\n"
 				+ "		<typeRent>"+typeRent+"</typeRent>\r\n"
+				+ "		<amountPaid>"+Payment+"</amountPaid>\r\n"
 				+ "		<inOut>\r\n"
 				+ "			<timeIn>"+inOut.getTimeIn()+"</timeIn>\r\n"
 				+ "			<dateIn>"+inOut.getdateIn()+"</dateIn>\r\n"
@@ -101,26 +112,21 @@ public class Customer implements Serializable{
 				+ "	</Customer>";
 	}
 
-	public long calTime() {
-		try {
-			return (long) Math.ceil((double)(simpleDateFormat.parse(inOut.getdateOut()+" "+ inOut.getTimeOut()).getTime()- simpleDateFormat.parse(inOut.getdateIn()+" "+ inOut.getTimeIn()).getTime())/(1000*60*60));
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	public String Cost(String time){
+		ArrayList<Room> dataRoom = new ArrayList<Room>();
+		int amountPaid=0;
+		if(typeRent.equals("Theo giờ")){
+			amountPaid=valueSearch(dataRoom)*Integer.parseInt(time);
+		} else if (typeRent.equals("Qua đêm")) {
+			amountPaid = valueSearch2(dataRoom)*Integer.parseInt(time);
 		}
-		return 0;
+		Payment = String.valueOf(amountPaid) + " VNĐ";
+		return Payment;
 	}
-	public long payment(ArrayList<Room> dataRoom) {
-		long amountPaid = 0;
-		if(typeRent.equals("Theo giờ")) amountPaid= valueSearch(dataRoom)*calTime();
-		else {
-			amountPaid= valueSearch2(dataRoom);
-		}
-		return amountPaid;
-	}
-	
+
 	public int valueSearch2(ArrayList<Room> dataRoom) {
 		int value =0;
+		dataRoom = input.importRoom();
 		for (Room room : dataRoom) {
 			if (iDRoom.equals(room.getiDsRoom())) {
 				value=room.getPriceOverNight();
@@ -130,11 +136,12 @@ public class Customer implements Serializable{
 	}
 	public int valueSearch(ArrayList<Room> dataRoom) {
 		int value =0;
+		dataRoom = input.importRoom();
 		for (Room room : dataRoom) {
 			if (iDRoom.equals(room.getiDsRoom())) {
 				value=room.getPrice1Hour();
 			}
 		}
 		return value;
-	}
+	}	
 }
