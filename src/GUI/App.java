@@ -13,7 +13,7 @@ public class App {
 //					frameLogin.setVisible(true);
 					mainFrame frame= new mainFrame();
 					Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-					frame.setSize(screenSize.width, screenSize.height);
+					frame.setSize(screenSize.width, screenSize.height-30);
 					frame.setVisible(true);
 					}
 				 catch (Exception e) {

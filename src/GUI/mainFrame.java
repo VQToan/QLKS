@@ -164,7 +164,7 @@ public class mainFrame extends JFrame {
 		jPInforRoom.setLayout(null);
 
 		JScrollPane jScrollPane1 = new JScrollPane();
-		jScrollPane1.setBounds(21, 237, 1290, 396);
+		jScrollPane1.setBounds(21, 237, 1290, 346);
 		jPInforRoom.add(jScrollPane1);
 
 		tableRoom = new JTable();
@@ -337,7 +337,7 @@ public class mainFrame extends JFrame {
 		tabPaneMain.addTab("Thông tin khách hàng", null, jPInforCustomer, null);
 
 		JScrollPane SPCust = new JScrollPane();
-		SPCust.setBounds(0, 222, 1326, 443);
+		SPCust.setBounds(0, 222, 1326, 355);
 		jPInforCustomer.add(SPCust);
 
 		tableCust = new JTable();
@@ -549,10 +549,10 @@ public class mainFrame extends JFrame {
 		cbbBeds2.setBounds(680, 100, 180, 30);
 
 		txtTime = new JTextField();
-		txtTime.setBounds(1030, 40, 150, 30);
+		txtTime.setBounds(1000, 280, 130, 30);
 
 		JLabel jLabel17 = new JLabel();
-		jLabel17.setBounds(920, 40, 110, 30);
+		jLabel17.setBounds(880, 250, 130, 80);
 		jLabel17.setText("Thời gian thuê(giờ): ");
 
 		JComboBox<String> cbbTypeRent2 = new JComboBox<String>();
@@ -935,7 +935,7 @@ public class mainFrame extends JFrame {
     		return (split1[0]+":"+split1[1]);
     	 	}else if (Integer.valueOf(split1[0])<10) return "0"+split1[0]+":00";
 			else return split[0];
-		}
+	}
      }
      public String checkInputReg(String txtFullName, String txtIDPersonal, String txtPhone,  String IDRoom) {
 		String resutl="";

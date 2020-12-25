@@ -24,6 +24,12 @@ public class OptionAction {
 		e1.printStackTrace();
 	}
 //    System.out.println(endDate);
+    for (int i= 0;i< dataRooms.size(); i++) {
+			Room tempRoom= dataRooms.get(i);
+			tempRoom.setStatus("Trống");
+			dataRooms.set(i,tempRoom);
+			tempRoom=null;
+			}
     for (Customer customer : dataCustomers) {
     	String startDate= customer.getInOut().getdateOut()+" "+ customer.getInOut().getTimeOut();
     	try {
@@ -31,16 +37,16 @@ public class OptionAction {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		if (((date1.getTime()-date2.getTime())/(1000*60))<=0) {
-			for (int i= 0;i< dataRooms.size(); i++) {
-				if(customer.getiDRoom().equals(dataRooms.get(i).getiDsRoom())) {
-					Room tempRoom= dataRooms.get(i);
-					tempRoom.setStatus("Trống");
-					dataRooms.set(i,tempRoom);
-					tempRoom=null;
-					}
-			}
-	}else {
+//		if (((date1.getTime()-date2.getTime())/(1000*60))<=0) {
+//			for (int i= 0;i< dataRooms.size(); i++) {
+//				if(customer.getiDRoom().equals(dataRooms.get(i).getiDsRoom())) {
+//					Room tempRoom= dataRooms.get(i);
+//					tempRoom.setStatus("Trống");
+//					dataRooms.set(i,tempRoom);
+//					tempRoom=null;
+//					}
+//			}
+	 if (((date1.getTime()-date2.getTime())/(1000*60))>0) {
 		for (int i= 0;i< dataRooms.size(); i++) {
 			if(customer.getiDRoom().equals(dataRooms.get(i).getiDsRoom())) {
 				Room tempRoom= dataRooms.get(i);
@@ -49,8 +55,8 @@ public class OptionAction {
 				tempRoom=null;
 				}
 		}
-	}
-	}
+	 }
+    }
 	return dataRooms;
 	}
 	public ArrayList<Room> setStautus(ArrayList<Room> dataRooms, String key) {
